@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::prefix('admin')->name('admin')->group(function(){
+Route::prefix('admin')->name('admin.')->group(function(){
     Route::resource('/products', ProductController::class);
 });
 
