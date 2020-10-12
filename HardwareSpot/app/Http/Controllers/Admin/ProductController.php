@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -27,7 +28,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('admin.products.create');
+
+        $categories = Category::all(['id', 'name']);
+
+        return view('admin.products.create', compact('categories'));
 
     }
 
@@ -39,7 +43,11 @@ class ProductController extends Controller
      */
     public function store(Request $request){
 
-        Product::create($request->all());
+
+        $data = $request->all();
+
+        $product = Product::create($data);
+        $product->categories()->sync($data['categories']);
         return redirect(route('admin.products.index'))->with('success', 'Product has been created');
 
         //$data = $request->all();
@@ -69,8 +77,9 @@ class ProductController extends Controller
     public function edit($product)
     {
         $product = $this->product->findOrFail($product);
+        $categories = Category::all(['id', 'name']);
 
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -87,6 +96,8 @@ class ProductController extends Controller
         $product = $this->product->find($product);
 
         $product->update($data);
+
+        $product->categories()->sync($data['categories']);
 
         return redirect(route('admin.products.index'))->with('success', 'Product updated successfully');
 

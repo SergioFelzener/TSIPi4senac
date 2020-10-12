@@ -38,7 +38,8 @@
                             </div>
                             <div class="ml-3">
                                 <span class="block">{{$product->name}}</span>
-                                <span class="block text-gray-300 tx-sm">Categoria</span>
+
+                                <span class="block text-gray-300 tx-sm" value="">pegar categoria aqui</span>
                             </div>
                         </div>
                     </td>
