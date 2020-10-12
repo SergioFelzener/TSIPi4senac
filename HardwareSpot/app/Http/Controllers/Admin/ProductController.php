@@ -16,7 +16,7 @@ class ProductController extends Controller
     }
     public function index() {
 
-        $products = $this->product->paginate(15);
+        $products = $this->product->paginate(25);
 
         return view('admin.products.index', compact('products'));
     }
@@ -40,8 +40,7 @@ class ProductController extends Controller
     public function store(Request $request){
 
         Product::create($request->all());
-        session()->flash('status', 'Product has been created');
-        return redirect(route('admin.products.index'));
+        return redirect(route('admin.products.index'))->with('success', 'Product has been created');
 
         //$data = $request->all();
         //dd($data);
@@ -69,7 +68,7 @@ class ProductController extends Controller
      */
     public function edit($product)
     {
-        $product = $this->product->find($product);
+        $product = $this->product->findOrFail($product);
 
         return view('admin.products.edit', compact('product'));
     }
@@ -81,19 +80,30 @@ class ProductController extends Controller
      * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $product = Product::find($id);
-        $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'descount' => $$request->descount,
-            'quantity' => $request->quantity,
-            'slug' => $request->slug
-        ]);
-        session()->flash('success', 'product updated successfully');
-        return redirect(route('admin.products.index'));
+    public function update(Request $request, $product){
+
+        $data = $request->all();
+
+        $product = $this->product->find($product);
+
+        $product->update($data);
+
+        return redirect(route('admin.products.index'))->with('success', 'Product updated successfully');
+
+
+
+
+        //$product->update([
+        //    'name' => $request->name,
+        //    'description' => $request->description,
+        //    'price' => $request->price,
+        //    'descount' => $$request->descount,
+        //    'quantity' => $request->quantity,
+        //    'slug' => $request->slug
+        //]);
+
+        //session()->flash('success', 'product updated successfully');
+        //return redirect(route('admin.products.index'));
     }
 
     /**
@@ -102,8 +112,12 @@ class ProductController extends Controller
      * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($product)
-    {
-        //
+    public function destroy($product){
+
+        $product = $this->product->find($product);
+
+        $product->delete();
+
+        return redirect(route('admin.products.index'))->with('success', 'Product Deleted');
     }
 }
