@@ -44,10 +44,30 @@ class ProductController extends Controller
     public function store(Request $request){
 
 
+        //verificando retorno de photos upload
+        //dd($request->file('photos'));
+        //$images = $request->file('photos');
+        //foreach($images as $image) {
+        //    print $image->store('products', 'public') . '<br>';
+        //}
+        //dd('Ok Upload');
+
         $data = $request->all();
 
         $product = Product::create($data);
         $product->categories()->sync($data['categories']);
+
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+
+            // inserindo a referencia da imagem no DB.
+
+            $product->photos()->createMany($images);
+
+        }
+
+
+
         return redirect(route('admin.products.index'))->with('success', 'Product has been created');
 
         //$data = $request->all();
@@ -99,6 +119,15 @@ class ProductController extends Controller
 
         $product->categories()->sync($data['categories']);
 
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+
+            // inserindo a referencia da imagem no DB.
+
+            $product->photos()->createMany($images);
+
+        }
+
         return redirect(route('admin.products.index'))->with('success', 'Product updated successfully');
 
 
@@ -130,5 +159,19 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect(route('admin.products.index'))->with('success', 'Product Deleted');
+    }
+
+    private function imageUpload(Request $request, $imageColumn){
+
+        $images = $request->file('photos');
+
+        $uploadedImages = [];
+
+        foreach($images as $image) {
+            $uploadedImages[] =  [$imageColumn => $image->store('products', 'public')];
+        }
+
+        return $uploadedImages;
+
     }
 }
