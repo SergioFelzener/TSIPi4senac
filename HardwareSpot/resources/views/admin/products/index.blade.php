@@ -40,11 +40,11 @@
                                 <span class="block">{{$product->name}}</span>
 
                                 <span class="block text-gray-300 tx-sm" value="">
-                                
+
                                 <!--@foreach ($product->categories as $category)
 
                                 {{$category->name}}
-            
+
                                 @endforeach-->
                                 {{$product->categories->first()->name}}
 
