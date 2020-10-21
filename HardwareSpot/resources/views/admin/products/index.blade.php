@@ -33,8 +33,8 @@
                 <tr>
                     <td class="border px-4 py-2">
                         <div class="flex px-4">
-                            <div class="flex-shrink h-15 w-15 pt-3">
-                                <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="rounded-full h-10 w-15">
+                            <div class="flex-shrink w-40 mr-3">
+                                <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="rounded-full">
                             </div>
                             <div class="ml-3">
                                 <span class="block">{{$product->name}}</span>
