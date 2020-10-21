@@ -47,14 +47,11 @@
 
 
 
-        <div class="px-4 border-blue-500 border-opacity-100 max-w-7xl mx-auto px-6 py-6 bg-gray-100 shadow mt-4 rounded-md">
+        <div class="select-all px-4 border-blue-500 border-opacity-100 max-w-7xl mx-auto px-6 py-6 bg-gray-100 shadow mt-4 rounded-md">
             <label for="categories">Categories</label>
-            <select name="categories" id="" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+            <select name="categories[]" id="" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" multiple>
                 @foreach ($categories as $category)
-
-                <option value="{{$category->id}}" @if ($product->categories->contains($category)) selected @endif>{{$category->name}}</option>
-
-
+                <option value="{{$category->id}}" @if($product->categories->contains($category)) selected @endif>{{$category->name}}</option>
                 @endforeach
             </select>
         </div>
@@ -72,7 +69,7 @@
 
     <hr>
 
-    <div class="w-full pl-3 mt-3 ml-5 px-4 lg:w-1/3 xl:w-1/4">
+    <div class="w-full pl-3 mt-3 ml-5 px-4 lg:w-1/2 xl:w-1/3">
         @foreach($product->photos as $photo)
         <div class="flex rounded-b-lg shadow-2xl">
             <img src="{{asset('storage/' . $photo->image)}}" alt="" class="h-36 w-52 flex-shrink-0 py-2 mr-2 ml-2">
