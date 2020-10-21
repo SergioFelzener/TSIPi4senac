@@ -3,13 +3,20 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Edit Product -> ({{$product->name}})
         </h2>
+        @if (session('success'))
+        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+            <div class="flex">
+                <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" /></svg></div>
+                {{session('success')}}
+            </div>
+        </div>
+        @endif
     </x-slot>
-
     <form method="POST" class="border-blue-500 border-opacity-0 max-w-7xl mx-auto px-6 py-6 bg-gray-100 shadow mt-4 rounded-md" enctype="multipart/form-data" action="{{route('admin.products.update',['product' => $product->id])}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         @csrf
         @method('put')
-
         <div class="w-full pl-3">
             <label class="uppercase text-black font-bold text-sm">Name</label>
             <input type="text" name="name" id="name" class="w-full bg-gray-100 text-gray-800 py-2 px-2 focus:bg-blue-100  focus:outline-none bg-gray-200 shadow rounded-md" value="{{$product->name}}">
@@ -65,12 +72,16 @@
 
     <hr>
 
-    <div class="w-full pl-3 mt-3 ml-5 px-4 lg:w-1/2 xl:w-1/3">
+    <div class="w-full pl-3 mt-3 ml-5 px-4 lg:w-1/3 xl:w-1/4">
         @foreach($product->photos as $photo)
-        <div class="flex rounded-b-lg shadow-lg">
-            <img src="{{asset('storage/' . $photo->image)}}" alt="" class="w-48 flex-shrink-0 py-2 mr-2 ml-2">
-            <div class= "mt-6">
-                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+        <div class="flex rounded-b-lg shadow-2xl">
+            <img src="{{asset('storage/' . $photo->image)}}" alt="" class="h-36 w-52 flex-shrink-0 py-2 mr-2 ml-2">
+            <div class="ml-10 mt-14">
+                <form action="{{route('admin.photo.remove')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="photoName" value="{{$photo->image}}">
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete</button>
+                </form>
             </div>
         </div>
         @endforeach
