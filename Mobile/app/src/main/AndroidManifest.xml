@@ -8,10 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="br.app.pi4mobile.Register"></activity>
-        <activity android:name="br.app.pi4mobile.Login" />
-        <activity android:name="br.app.pi4mobile.Home">
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity android:name=".Home"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".Login" />
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
