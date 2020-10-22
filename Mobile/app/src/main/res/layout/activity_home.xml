@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home">
+    tools:context=".Home">
 
     <TextView
         android:id="@+id/textView"
@@ -46,7 +46,7 @@
 
         <fragment
             android:id="@+id/fragment"
-            android:name="br.aulas.pi4mobile.fragments.productHome"
+            android:name="br.app.pi4mobile.fragments.ProductHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

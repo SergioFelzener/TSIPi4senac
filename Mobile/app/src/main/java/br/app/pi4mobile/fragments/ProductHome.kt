@@ -1,13 +1,13 @@
-package br.aulas.pi4mobile.fragments
+package br.app.pi4mobile.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.aulas.pi4mobile.R
+import br.app.pi4mobile.R
 
-class productHome : Fragment() {
+class ProductHome : Fragment() {
 
 
     override fun onCreateView(

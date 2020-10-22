@@ -1,4 +1,4 @@
-package br.aulas.pi4mobile
+package br.app.pi4mobile
 
 import org.junit.Test
 
