@@ -42,7 +42,7 @@
         </div>
         <div class="w-full pl-3 mt-3">
             <label class="uppercase text-black font-bold text-sm">Slug</label>
-            <input type="text" name="slug" id="slug" class="w-full bg-gray-100 text-gray-800 py-2 px-2 focus:bg-blue-100  focus:outline-none bg-gray-200 shadow rounded-md" value="{{$product->slug}}">
+            <input type="text" name="slug" id="slug" class="w-full bg-gray-100 text-gray-800 py-2 px-2 focus:bg-blue-100  focus:outline-none bg-gray-200 shadow rounded-md" value="{{$product->slug}}" readonly>
         </div>
 
 
