@@ -33,13 +33,12 @@
                 <tr>
                     <td class="border px-4 py-2">
                         <div class="flex px-4">
-                            <div class="flex-shrink h-10 w-10">
-                                <img src="http://via.placeholder.com/50" alt="" class="rounded-full h10 w-10 mr-3 ">
+                            <div class="flex-shrink w-40 mr-3">
+                                <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="rounded-full">
                             </div>
                             <div class="ml-3">
                                 <span class="block">{{$product->name}}</span>
-
-                                <span class="block text-gray-300 tx-sm" value="">pegar categoria aqui</span>
+                                <span class="block text-gray-300 tx-sm" value="">{{$product->categories->first()->name}}</span>
                             </div>
                         </div>
                     </td>
