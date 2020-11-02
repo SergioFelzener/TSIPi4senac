@@ -34,11 +34,17 @@
                     <td class="border px-4 py-2">
                         <div class="flex px-4">
                             <div class="flex-shrink w-40 mr-3">
-                                <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="rounded-full">
+                                @if($product->photos->count())
+                                    <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="rounded-full">
+                                @else
+                                    <img src="{{asset('storage/assets/img/no-photo.jpg')}}" alt="" class="rounded-full">
+                                @endif
                             </div>
                             <div class="ml-3">
                                 <span class="block">{{$product->name}}</span>
-                                <span class="block text-gray-300 tx-sm" value="">{{$product->categories->first()->name}}</span>
+                                @foreach($product->categories as $category)
+                                    <span name="categories[]" class="block text-gray-300 tx-sm" value="">{{$category->name}}</span>
+                                @endforeach
                             </div>
                         </div>
                     </td>
