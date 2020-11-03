@@ -66,7 +66,7 @@
         </div>
         <div class="select-all px-4 border-blue-500 border-opacity-100 max-w-7xl mx-auto px-6 py-6 bg-gray-100 shadow mt-4 rounded-md">
             <label for="categories">Categories</label>
-            <select name="categories[]" id="" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" multiple>
+            <select name="categories[]" id="" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" required multiple>
                 @foreach ($categories as $category)
                 <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach

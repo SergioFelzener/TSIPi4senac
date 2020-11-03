@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductPhotoController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,19 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::prefix('admin')->name('admin.')->group(function(){
-    Route::resource('/products', ProductController::class);
-    Route::resource('/categories', CategoryController::class);
 
-    Route::post('photos/remove', [ProductPhotoController::class, 'removePhoto'])->name('photo.remove');
+Route::group(['middleware' => ['auth']], function(){
+    Route::prefix('admin')->name('admin.')->group(function(){
+        Route::resource('/products', ProductController::class);
+        Route::resource('/categories', CategoryController::class);
+    
+        Route::post('photos/remove', [ProductPhotoController::class, 'removePhoto'])->name('photo.remove');
+    });
+
 });
 
 
