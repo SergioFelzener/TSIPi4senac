@@ -44,17 +44,30 @@ class APIUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        if (!$request->name || !$request->email || !$request->password) {
+            return response()->json(["error" => "Dados Inválidos"], 400);
+        }
+
+        $user = User::where('email', $request->email);
+        if ($user->count() > 0) {
+            return response()->json(["E-mail já utilizado"], 400);
+        }
+
+        $user = User::create([
+
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+
+        ]);
+
+        return response()->json(['user' => $user, 
+        'token' => $user->createToken($request->email)->plainTextToken]);
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
