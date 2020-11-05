@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/product/{slug}', [HomeController::class, 'single'])->name('product.single');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
 
 
 Route::group(['middleware' => ['auth']], function(){

@@ -423,15 +423,14 @@
 
     <div class="container my-12 mx-auto px-4 md:px-12">
         <div class="flex flex-wrap -mx-1 lg:-mx-4">
-            
-
             @foreach($products as $product)
             <div id="productCard" class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
                 <div class="overflow-hidden rounded-lg shadow">
-                    <a href="#">
-                        <img alt="Placeholder" class="block h-auto w-full" src="{{asset('storage/assets/img/no-photo.jpg')}}">
-                    </a>
-
+                    @if($product->photos->count())
+                    <img src="{{asset('storage/' . $product->photos->first()->image)}}" alt="" class="">
+                    @else
+                    <img src="{{asset('storage/assets/img/no-photo.jpg')}}" alt="" class="rounded-full">
+                    @endif
                     <header class="bg-purple-100 border-t-4 border-l-0 border-r-0 border-b-0 border-purple-500  mt-2 border flex items-center justify-between leading-tight p-2 md:p-4">
                         <h2 class="text-lg">
                             <a class="no-underline hover:underline text-black" href="#">
@@ -450,15 +449,13 @@
                     </div>
 
                     <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                        <button class="px-4 py-2 rounded-lg text-white shadow-lg hover:bg-blue-300 hover:text-black text-bold justify-center bg-blue-600">Comprar</button>
+                        <a href="{{route('product.single' , ['slug' => $product->slug])}}" class="px-4 py-2 rounded-lg text-white shadow-lg hover:bg-blue-300 hover:text-black text-bold justify-center bg-blue-600">Ver Mais</a>
                         <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
                             <span class="hidden">Like</span>
                             <i class="material-icons">favorite_border</i>
                         </a>
                     </footer>
-
                 </div>
-
             </div>
             @endforeach
 
