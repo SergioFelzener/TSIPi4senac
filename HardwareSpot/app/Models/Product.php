@@ -32,4 +32,13 @@ class Product extends Model
     public function product() {
         return $this->hasMany(Category::class);
     }
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot('image');
+    }
+
+    public function getCategories(){
+        return response()->json(Category::with('product','photos')->get());
+
+    } 
 }

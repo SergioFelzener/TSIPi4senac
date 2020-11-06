@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 
 class APIUserController extends Controller
@@ -46,7 +45,7 @@ class APIUserController extends Controller
      */
     public function store(Request $request){
         if (!$request->name || !$request->email || !$request->password) {
-            return response()->json(["error" => "Dados Inválidos"], 400);
+            return response()->json(["Dados Inválidos"], 400);
         }
 
         $user = User::where('email', $request->email);
