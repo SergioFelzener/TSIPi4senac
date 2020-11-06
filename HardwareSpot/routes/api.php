@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\APICategoriesController;
+use App\Http\Controllers\API\APIProductsController;
 use App\Http\Controllers\API\APIUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 Route::post('/login', [APIUserController::class, 'login']);
 Route::post('/register', [APIUserController::class, 'store']);
+Route::get('/products', [APIProductsController::class, 'index']);
+Route::get('categories', [APICategoriesController::class, 'index']);
+
 
 
 
