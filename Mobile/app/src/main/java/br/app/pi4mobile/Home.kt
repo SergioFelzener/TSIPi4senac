@@ -1,18 +1,54 @@
 package br.app.pi4mobile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import br.app.pi4mobile.api.RetrofitInitializer
+import br.app.pi4mobile.api.UserModel
+import kotlinx.android.synthetic.main.activity_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.StringBuilder
+
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        Toast.makeText(this, "Bem-Vindo", Toast.LENGTH_SHORT).show()
-    }
+       val call: Call<List<UserModel>> = RetrofitInitializer().userService().list()
 
+       call.enqueue(object: Callback<List<UserModel>?> {
+           override fun onFailure(call: Call<List<UserModel>?>, t: Throwable) {
+               Log.e("ERROR", t.message.toString())
+           }
+
+           override fun onResponse(
+               call: Call<List<UserModel>?>,
+               response: Response<List<UserModel>?>
+           ) {
+
+              val users: List<UserModel> = response.body()!!
+
+               val stringBuilder = StringBuilder()
+
+               // for(user in users) {
+
+                   // stringBuilder.append(user.id)
+                   //stringBuilder.append(user.name)
+
+
+               // }
+
+               usersView.text = stringBuilder
+
+
+           }
+
+       })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
