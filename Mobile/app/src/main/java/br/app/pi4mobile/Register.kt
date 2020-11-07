@@ -2,15 +2,13 @@ package br.app.pi4mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import br.app.pi4mobile.api.RetrofitInitializer
 import br.app.pi4mobile.api.UserModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_register.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.StringBuilder
 
 class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,18 +17,23 @@ class Register : AppCompatActivity() {
 
        registerButton.setOnClickListener {
 
-           val userName = nameRegisterInput.text
-           val userEmail = emailRegisterInput.text
-           val userPassword = passwordRegisterInput.text
-
-           val userToRegister: UserModel = UserModel( userName,  userEmail, userPassword)
+           val userName = nameRegisterInput.text.toString()
+           val userEmail = emailRegisterInput.text.toString()
+           val userPassword = passwordRegisterInput.text.toString()
 
 
-           val call: Call<UserModel> = RetrofitInitializer().userService().loginUser((userToRegister))
+           val user = JSONObject()
+
+           user.put("name", userName)
+           user.put("email", userEmail)
+           user.put("password", userPassword)
+
+           val call: Call<UserModel> = RetrofitInitializer().userService().registerUser(user)
 
            call.enqueue(object: Callback<UserModel> {
                override fun onFailure(call: Call<UserModel>, t: Throwable) {
-                   Log.e("ERROR", t.message.toString())
+
+                   apiResponse.text = t.message.toString()
                }
 
                override fun onResponse(
@@ -38,16 +41,9 @@ class Register : AppCompatActivity() {
                    response: Response<UserModel>
                ) {
 
-                   val user: UserModel = response.body()!!
+                   apiResponse.text = response.toString()
 
-
-                   textView3.text = user.toString()
-
-                   Snackbar.make(
-                       textView2,
-                       user.toString(),
-                       Snackbar.LENGTH_SHORT
-                   ).show()
+                   //val user: UserModel = response.body()!!
 
 
                }
