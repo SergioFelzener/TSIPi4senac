@@ -1,10 +1,9 @@
 package br.app.pi4mobile.api
 
-import android.text.Editable
+data class UserModel (
+    var name: String = "",
+    var email: String = "",
+    var password: String = ""
 
-
-class UserModel(
-    name: Editable,
-    email: Editable,
-    password: Editable
 )
+

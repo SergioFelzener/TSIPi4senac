@@ -9,9 +9,8 @@ interface UserService {
     @GET("users")
     fun list(): Call<List<UserModel>>
 
-    @POST("login")
-    fun loginUser(
-        @Body usermodel: UserModel
+    @POST("register")
+    fun registerUser(@Body usermodel: UserModel
     ): Call<UserModel>
 
 }

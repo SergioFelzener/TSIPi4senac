@@ -18,36 +18,6 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-       val call: Call<List<UserModel>> = RetrofitInitializer().userService().list()
-
-       call.enqueue(object: Callback<List<UserModel>?> {
-           override fun onFailure(call: Call<List<UserModel>?>, t: Throwable) {
-               Log.e("ERROR", t.message.toString())
-           }
-
-           override fun onResponse(
-               call: Call<List<UserModel>?>,
-               response: Response<List<UserModel>?>
-           ) {
-
-              val users: List<UserModel> = response.body()!!
-
-               val stringBuilder = StringBuilder()
-
-               // for(user in users) {
-
-                   // stringBuilder.append(user.id)
-                   //stringBuilder.append(user.name)
-
-
-               // }
-
-               usersView.text = stringBuilder
-
-
-           }
-
-       })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
