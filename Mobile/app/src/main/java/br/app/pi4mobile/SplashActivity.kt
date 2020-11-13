@@ -15,9 +15,9 @@ class SplashActivity : AppCompatActivity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this, Register::class.java)
+            val intent = Intent(this, Profile::class.java)
             startActivity(intent)
             finish()
-        }, 5000)
+        }, 3000)
     }
 }
