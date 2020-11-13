@@ -165,7 +165,8 @@
                                         <div>
                                             <span class="title-font font-medium text-2xl text-gray-900">R$ {{$product->price}}</span>
                                         </div>
-                                        <form action="" method="post">
+                                        <form action="{{route('cart.add')}}" method="post">
+                                            @csrf
                                             <input type="hidden" name="product['name']" value="{{$product->name}}">
                                             <input type="hidden" name="product['price']" value="{{$product->price}}">
                                             <input type="hidden" name="product['slug']" value="{{$product->slug}}">
