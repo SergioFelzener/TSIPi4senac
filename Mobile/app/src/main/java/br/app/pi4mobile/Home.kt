@@ -1,18 +1,17 @@
 package br.app.pi4mobile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.app.pi4mobile.adapters.CustomAdapter
 import br.app.pi4mobile.fragments.*
-import br.app.pi4mobile.models.Product
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class Home : AppCompatActivity() {
 
@@ -79,6 +78,11 @@ class Home : AppCompatActivity() {
 
         Toast.makeText(this, "Bem-Vindo", Toast.LENGTH_SHORT).show()
 
+
+
+    }
+
+    
 
     }
 
