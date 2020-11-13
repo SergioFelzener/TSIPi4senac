@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductPhotoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::prefix('cart')->name('cart.')->group(function(){
 
+    Route::post('add', [CartController::class, 'add'])->name('add');
+    Route::get('/', [CartController::class, 'index'])->name('index');
+
+});
 
 Route::group(['middleware' => ['auth']], function(){
     Route::prefix('admin')->name('admin.')->group(function(){

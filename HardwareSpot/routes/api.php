@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\APICartController;
 use App\Http\Controllers\API\APICategoriesController;
 use App\Http\Controllers\API\APIProductsController;
 use App\Http\Controllers\API\APIUserController;
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('users', [APIUserController::class, 'index'])->name('users');
+    Route::get('/cart', [APICartController::class, 'cart']);
+    Route::post('/cart', [APICartController::class, 'store']);
 });
 
 Route::post('/login', [APIUserController::class, 'login']);
