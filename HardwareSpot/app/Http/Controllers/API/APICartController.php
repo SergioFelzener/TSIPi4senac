@@ -17,8 +17,12 @@ class APICartController extends Controller
         $user = auth()->user();
         $cart = $user->cart;
 
-        if ($cart->count() > 0) {
+        
+
+        if ($cart > 0) {
             $products = [];
+
+            dd($products);
 
             foreach($cart as $c) {
 
