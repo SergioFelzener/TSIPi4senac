@@ -2,68 +2,65 @@ package br.app.pi4mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import br.app.pi4mobile.api.RetrofitInitializer
-import br.app.pi4mobile.api.UserModel
-import br.app.pi4mobile.api.UserService
+import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.models.DefaultResponse
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-       registerButton.setOnClickListener {
+       btnRegister.setOnClickListener {
 
-           val userName = nameRegisterInput.text
-           val userEmail = emailRegisterInput.text
-           val userPassword = passwordRegisterInput.text
+           val name = etNameRegister.text.toString().trim()
+           val email = etEmailRegister.text.toString().trim()
+           val password = etPasswordRegister.text.toString().trim()
+           val confirmPassword = etConfirmPasswordRegister.text.toString().trim()
 
-           val userToRegister = UserModel( userName.toString(),  userEmail.toString(), userPassword.toString())
+           if(name.isEmpty()){
+               etNameRegister.error = "Nome é obrigatório"
+               etNameRegister.requestFocus()
+               return@setOnClickListener
+           }
 
-           val retrofit = Retrofit.Builder()
-               .baseUrl("http://10.0.2.2:8000/api")
-               .addConverterFactory(GsonConverterFactory.create())
-               .build()
+           if(email.isEmpty()){
+               etEmailRegister.error = "Email é obrigatório"
+               etEmailRegister.requestFocus()
+               return@setOnClickListener
+           }
+           if(password.isEmpty()){
+               etPasswordRegister.error = "Senha é obrigatório"
+               etPasswordRegister.requestFocus()
+               return@setOnClickListener
+           }
+           if(confirmPassword.isEmpty()){
+               etConfirmPasswordRegister.error = "Confirmar senha é obrigatório"
+               etConfirmPasswordRegister.requestFocus()
+               return@setOnClickListener
+           }
 
-           val service = retrofit.create(UserService::class.java)
+           if(password != confirmPassword){
+               etPasswordRegister.error = "As senhas não coincidem"
+               etPasswordRegister.requestFocus()
+               return@setOnClickListener
+           }
 
-           val call = service.registerUser(userToRegister)
+           RetrofitClient.instance.register(name, email, password)
+               .enqueue(object: Callback<DefaultResponse>{
+                   override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
+                        Toast.makeText(applicationContext, response.body()?.message, Toast.LENGTH_LONG).show()
+                   }
 
-            val callback = object: Callback<UserModel> {
-                override fun onFailure(call: Call<UserModel>, t: Throwable) {
+                   override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                       Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                   }
 
-                    Toast.makeText(this@Register, "Algo de errado não está certo", Toast.LENGTH_LONG).show()
-
-                    Log.e("Register", "registerUser", t)
-
-                }
-
-                override fun onResponse(call: Call<UserModel>, response: Response<UserModel>) {
-
-                    if(response.isSuccessful) {
-
-
-                        val user = response.body()
-                        Toast.makeText(this@Register, user.toString(), Toast.LENGTH_LONG).show()
-
-                    } else {
-
-                        Toast.makeText(this@Register, "Algo de errado continua errado", Toast.LENGTH_LONG).show()
-                    }
-
-                }
-
-
-            }
-
-           call.enqueue(callback)
+               })
 
        }
 
