@@ -22,11 +22,25 @@ class APIUserController extends Controller
 
         
         if (!$user || !Hash::check($request->password, $user->password)) {
-             return response()->json([['Credenciais incorretas.']], 401);         
+             return response()->json([["error" => "Credenciais incorretas."]], 401);         
         }
 
-        return response()->json(['user' => $user, 
-                'token' => $user->createToken($request->device_name)->plainTextToken]);
+        return response()->json([
+            'user' => $user,
+            'status' => "Sucesso",
+            'msg' => $user->email . " " . "Logado no sistema", 
+            'id' => $user->id,
+            'token' => $user->createToken($request->device_name)->plainTextToken]);
+
+    }
+
+    public function logout(Request $request){
+
+        if ($request->user()->tokens()->delete()){
+            return response()->json(["success" => "Logout executato com sucesso"]);
+        } else {
+            return response()->json(["error" => "Problemas ao executar o LogOut"], 409);
+        }
 
     }
 
@@ -45,12 +59,12 @@ class APIUserController extends Controller
      */
     public function store(Request $request){
         if (!$request->name || !$request->email || !$request->password) {
-            return response()->json(["Dados Inválidos"], 400);
+            return response()->json(["error" => "Dados Inválidos"], 400);
         }
 
         $user = User::where('email', $request->email);
         if ($user->count() > 0) {
-            return response()->json(["E-mail já utilizado"], 400);
+            return response()->json(["error" => "E-mail já utilizado"], 401);
         }
 
         $user = User::create([

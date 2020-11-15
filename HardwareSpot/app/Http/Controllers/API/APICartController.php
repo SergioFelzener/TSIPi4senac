@@ -3,126 +3,191 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductOrder;
-use App\Models\Cart;
 use App\Models\Order;
+
+
 
 class APICartController extends Controller
 {
 
-    public function cart(){
-
+    public function cart()
+    {
         $user = auth()->user();
+
         $cart = $user->cart;
 
-        
+        if ($cart->count() > 0) {
 
-        if ($cart > 0) {
             $products = [];
 
-            dd($products);
+            foreach ($cart as $c) {
 
-            foreach($cart as $c) {
-
-                $prod = Product::all()->find($c->product_id);
-                array_push($c, $prod);
+                $c = Product::all()->find($c->product_id);
+                array_push($products, $c);
             }
 
             return response()->json($products);
+        } else {
 
-        }else {
-
-            return response()->json(["error" => "Carrinho etá Vazio"]);
+            return response()->json(["error" => "Não há produtos no carrinho"], 400);
         }
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(){
-    
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        if(!$request->product_id) {
-            return response()->json(["Erro" => "Requisição Incompleta"]);
+        if (!$request->product_id) {
+
+            return response()->json(["error" => "Requisição com corpo incompleto"], 400);
         }
 
         $prod = Product::all()->where('id', $request->product_id)->count();
 
-        if($prod > 0 ) { 
-            $userId = auth()->user()->id;
+        if ($prod > 0) {
 
-            $checkCart = Cart::all()->where('user_id', $userId)->where('product_id', $request->product_id)->first();
+            $user = auth()->user()->id;
+
+            $checkCart = Cart::all()->where('user_id', $user)->where('product_id', $request->product_id)->first();
 
             if ($checkCart) {
 
                 $amount = $checkCart->amount;
 
-                $checkCart->update(['amount' => $amount]);
+                $checkCart->update(['amount' => $amount + 1]);
 
-                return response()->json(["success" => "Produto adiconado ao carrinho"]);
-
-            } else { 
+                return response()->json(["success" => "Produto adicionado no carrinho"]);
+            } else {
 
                 Cart::create([
-                    'user_id' => $userId,
+                    'user_id' => $user,
                     'product_id' => $request->product_id,
-                    'amount' => 1
-
+                    'amount' => $request->amount
                 ]);
 
-                return response()->json(["success" => "Produto adicionado no carrinho"]); 
+                return response()->json(["success" => "Produto adicionado no carrinho"]);
+            }
+        } else {
 
-            } 
-        }else { 
-
-            return response()->json(["Error" => "Produto inválido"], 400);
+            return response()->json([
+                "error" => "Este Produto não existe na base de dados",
+                "product_id" => "Is invalid",
+                "mesage" => "Impossível adicionar no carrinho"
+            ], 401);
         }
-        //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function removeProd(Request $request)
     {
-        //
+
+        if (!$request->product_id) {
+
+            return response()->json(["Error" => "Dados incompletos"], 400);
+        }
+
+        $user = auth()->user()->id;
+
+        $checkCart = Cart::all()->where('user_id', $user)->where('product_id', $request->product_id)->first();
+
+        if ($checkCart == null) {
+
+            return response()->json(["Error" => "Carrinho não encontrado"], 404);
+        }
+
+        if ($checkCart->amount > 1) {
+
+            $amount = $checkCart->amount;
+
+            $checkCart->update(['amount' => $amount - 1]);
+        } else {
+
+            $checkCart->delete();
+        }
+
+        return response()->json(["success" => "Produto removido do carrinho com sucesso"]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function removeCart()
     {
-        //
+
+        $user = auth()->user()->id;
+
+        $this->delete($user);
+
+        return response()->json(["success" => "Carrinho Vazio"]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    private function delete(int $user)
     {
-        //
+
+        //remove produto do carrinho do cliente
+        $removeProducts = Cart::all()->where('user_id', $user);
+
+        foreach ($removeProducts as $products) {
+            $products->delete();
+        }
+    }
+
+    public function checkout()
+    {
+
+        $user = auth()->user()->id;
+
+        $orderItems = Cart::all()->where('user_id', $user);
+
+        // verificar estoque do produto
+        foreach ($orderItems as $prod) {
+
+            $product = Product::find($prod->product_id);
+            $quantity = $product->quantity;
+
+            if ($prod->amount > $quantity) {
+                return response()->json([
+                    "ERRO" => "$product->name não tem em estoque",
+                    "Quantidade em estoque" => $quantity,
+                    "Mesage" => "Pedido não realizado"
+                ], 303);
+            }
+        }
+
+        //criando pedido
+        $order = Order::create(['user_id' => $user]);
+
+        // inserir as orders
+        $this->insertOrder($user, $order->id);
+
+        //removendo produtos do carrinho
+        $this->deleteData($user);
+
+        return response()->json(["success" => "Parabéns! Compra finalizada com sucesso!"]);
+    }
+
+    private function insertOrder(int $user, int $order)
+    {
+        // Pegar carrinho do usuário
+        $orderItems = Cart::all()->where('user_id', $user);
+
+        foreach ($orderItems as $prod) {
+            $product = Product::find($prod->product_id);
+
+            // Criando registo na tabela de order
+            ProductOrder::create([
+                'order_id' => $order,
+                'product_id' => $product->id,
+                'price' => $product->price - ($product->price * ($product->discount / 100) * $prod->amount),
+                'amount' => $prod->amount
+            ]);
+
+            // remove o produto do estoque
+            $quantity = $product->quantity;
+            $quantity -= $prod->amount;
+
+
+            //atualizando produto
+            $product->update(['quantity' => $quantity]);
+        }
     }
 }
