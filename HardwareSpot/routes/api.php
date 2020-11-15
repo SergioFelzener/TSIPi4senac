@@ -25,13 +25,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('users', [APIUserController::class, 'index'])->name('users');
     Route::get('/cart', [APICartController::class, 'cart']);
+    Route::get('/logout', [APIUserController::class, 'logout']);
     Route::post('/cart', [APICartController::class, 'store']);
+    Route::get('/checkout', [APICartController::class, 'checkout']);
+    Route::post('/remove-prod/{id}', [APICartController::class, 'removeProd']);
+    Route::get('/remove-cart', [APICartController::class, 'removeCart']);
+    
 });
 
 Route::post('/login', [APIUserController::class, 'login']);
 Route::post('/register', [APIUserController::class, 'store']);
 Route::get('/products', [APIProductsController::class, 'index']);
 Route::get('categories', [APICategoriesController::class, 'index']);
+
+
+
+
+
 
 
 
