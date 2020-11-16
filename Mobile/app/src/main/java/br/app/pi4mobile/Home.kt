@@ -1,16 +1,14 @@
 package br.app.pi4mobile
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.RecyclerView
 import br.app.pi4mobile.fragments.*
+import br.app.pi4mobile.storage.SharedPrefManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_home.*
+
 
 
 class Home : AppCompatActivity() {
@@ -24,6 +22,9 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val fragment = HomeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
 
         val bottomNavigationView : BottomNavigationView = findViewById(R.id.btm_nav)
 
@@ -77,15 +78,20 @@ class Home : AppCompatActivity() {
         }
 
         Toast.makeText(this, "Bem-Vindo", Toast.LENGTH_SHORT).show()
-
-
-
     }
 
-    
+    override fun onStart() {
+        super.onStart()
+
+        if(!SharedPrefManager.getInstance(this).isLoggedIn){
+            val intent = Intent(applicationContext, Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
 
     }
-
-
-
 }
+
+
+
+
