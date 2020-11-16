@@ -1,3 +1,5 @@
 package br.app.pi4mobile.models
 
-data class DefaultResponse (val error: Boolean, val message: String)
+import br.app.pi4mobile.api.UserModel
+
+data class DefaultResponse (val user: User)

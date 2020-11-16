@@ -1,6 +1,7 @@
 package br.app.pi4mobile.api
 
 import br.app.pi4mobile.models.DefaultResponse
+import br.app.pi4mobile.models.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,4 +16,13 @@ interface Api {
         @Field("email") email:String,
         @Field("password") password:String
     ):Call<DefaultResponse>
+
+
+    @FormUrlEncoded
+    @POST("login")
+    fun login(
+        @Field("email") email:String,
+        @Field("password") password: String,
+        @Field("device_name") device_name: String
+    ):Call<LoginResponse>
 }

@@ -1,5 +1,6 @@
 package br.app.pi4mobile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -15,7 +16,7 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-       btnRegister.setOnClickListener {
+       btnLogin.setOnClickListener {
 
            val name = etNameRegister.text.toString().trim()
            val email = etEmailRegister.text.toString().trim()
@@ -53,11 +54,14 @@ class Register : AppCompatActivity() {
            RetrofitClient.instance.register(name, email, password)
                .enqueue(object: Callback<DefaultResponse>{
                    override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
-                        Toast.makeText(applicationContext, response.body()?.message, Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(applicationContext, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this@Register, Home::class.java))
+                        
                    }
 
                    override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                       Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                       Toast.makeText(applicationContext, "Não possível cadastrar o usuário", Toast.LENGTH_LONG).show()
                    }
 
                })
