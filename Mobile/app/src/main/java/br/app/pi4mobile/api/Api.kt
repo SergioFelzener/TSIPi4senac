@@ -2,9 +2,12 @@ package br.app.pi4mobile.api
 
 import br.app.pi4mobile.models.DefaultResponse
 import br.app.pi4mobile.models.LoginResponse
+import br.app.pi4mobile.models.Product
+import br.app.pi4mobile.models.ProductResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface Api {
@@ -25,4 +28,7 @@ interface Api {
         @Field("password") password: String,
         @Field("device_name") device_name: String
     ):Call<LoginResponse>
+
+    @GET("products")
+    fun getProducts():Call<List<Product>>
 }
