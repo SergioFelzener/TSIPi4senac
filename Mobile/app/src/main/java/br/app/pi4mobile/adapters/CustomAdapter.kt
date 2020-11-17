@@ -27,7 +27,7 @@ class CustomAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvTitle.text = product[position].title
+        holder.tvTitle.text = product[position].name
 
         items.add(holder.card )
     }
