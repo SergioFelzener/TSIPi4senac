@@ -1,10 +1,11 @@
-package br.app.pi4mobile
+package br.app.pi4mobile.activitys
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import br.app.pi4mobile.R
 import br.app.pi4mobile.fragments.*
 import br.app.pi4mobile.storage.SharedPrefManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,7 +33,7 @@ class Home : AppCompatActivity() {
 
             when(item.itemId){
 
-                R.id.home->{
+                R.id.home ->{
                     homeFragment = HomeFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -40,7 +41,7 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.categories->{
+                R.id.categories ->{
                     categoriesFragment = CategoriesFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -48,7 +49,7 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.orders->{
+                R.id.orders ->{
                     ordersFragment = OrdersFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -56,7 +57,7 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.cart->{
+                R.id.cart ->{
                     cartFragment = CartFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -64,7 +65,7 @@ class Home : AppCompatActivity() {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                 }
-                R.id.profile->{
+                R.id.profile ->{
                     profileFragment = ProfileFragment()
                     supportFragmentManager
                         .beginTransaction()
