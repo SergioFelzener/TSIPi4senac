@@ -7,6 +7,8 @@ data class Product (
     val price: String,
     val descount: String,
     val quantity: String,
-    val slug: String
+    val slug: String,
+    val categories: List<Category>,
+    val photos: List<Photo>
 
 )

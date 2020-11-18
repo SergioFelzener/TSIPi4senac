@@ -6,6 +6,8 @@
     android:layout_width="125dp"
     android:layout_height="100dp"
     android:layout_margin="10dp"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/white" >
 <!--    app:cardBackGround="@android:color/white"-->
 <!--    app:cardCornerRadius="5dp"-->
@@ -16,14 +18,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_action_profile"/>
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:text="Name"
+            android:textColor="@color/preto"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Title"
+            android:layout_marginBottom="15dp"
+            android:text="Price"
             android:textColor="@color/preto"
             android:textSize="18sp"
             android:textStyle="bold" />

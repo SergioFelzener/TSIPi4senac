@@ -1,9 +1,10 @@
-package br.app.pi4mobile
+package br.app.pi4mobile.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import br.app.pi4mobile.R
 
 class SplashActivity : AppCompatActivity() {
 
@@ -18,6 +19,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 500)
     }
 }
