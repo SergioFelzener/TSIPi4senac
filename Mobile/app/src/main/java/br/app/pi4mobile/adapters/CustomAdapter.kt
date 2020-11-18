@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Product
-import br.app.pi4mobile.models.ProductResponse
-import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,7 +45,7 @@ class CustomAdapter(
                             response: Response<Product>
                         ) {
                             val productReturn = response.body()!!
-                            val intent = Intent(v.context, br.app.pi4mobile.activitys.Product::class.java)
+                            val intent = Intent(v.context, br.app.pi4mobile.activitys.ProductActivity::class.java)
                             intent.putExtra("name", productReturn.name)
                             intent.putExtra("description", productReturn.description)
                             intent.putExtra("valor", productReturn.price)

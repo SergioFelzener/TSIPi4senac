@@ -5,7 +5,7 @@ import android.os.Bundle
 import br.app.pi4mobile.R
 import kotlinx.android.synthetic.main.activity_product.*
 
-class Product : AppCompatActivity() {
+class ProductActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product)
@@ -15,6 +15,7 @@ class Product : AppCompatActivity() {
         productName.text = name
         productDetails.text = description
         valorText.text = price
+        ivImage.setImageResource(R.drawable.ic_action_profile)
     }
 
 }
