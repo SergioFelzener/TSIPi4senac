@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Product
-import br.app.pi4mobile.models.ProductResponse
-import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +31,7 @@ class CustomAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val ivImage: ImageView = itemView.iv_image
-        val tvName: TextView = itemView.tvName
+        val tvName: TextView = itemView.textViewName
         val tvPrice: TextView = itemView.tvPrice
         val card: CardView = itemView.card
 

@@ -1,18 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="113dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfile"
+        tools:src="@tools:sample/avatars[2]" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/etPasswordProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Altere sua senha"
+        android:inputType="textPersonName"
+        android:textColor="#4C4C4C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPasswordProfile" />
+
+    <TextView
+        android:id="@+id/textViewPasswordProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Senha"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNameProfile" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Email"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+    <EditText
+        android:id="@+id/etEmailProfile"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:inputType="textPersonName"
+        android:textColor="#4C4C4C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
+
+    <TextView
+        android:id="@+id/textViewProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Perfil"
+        android:textColor="#222222"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNameProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Nome"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailProfile" />
+
+    <EditText
+        android:id="@+id/etNameProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_medium"
+        android:inputType="textPersonName"
+        android:textColor="#505050"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameProfile" />
+
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#4C668D"
+        android:text="Editar"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordProfile" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#4C668D"
+        android:text="Sair"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditProfile" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
