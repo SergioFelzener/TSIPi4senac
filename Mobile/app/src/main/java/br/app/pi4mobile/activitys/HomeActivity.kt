@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 
-class Home : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     lateinit var profileFragment: ProfileFragment
     lateinit var categoriesFragment: CategoriesFragment
@@ -85,7 +85,7 @@ class Home : AppCompatActivity() {
         super.onStart()
 
         if(!SharedPrefManager.getInstance(this).isLoggedIn){
-            val intent = Intent(applicationContext, Login::class.java)
+            val intent = Intent(applicationContext, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }

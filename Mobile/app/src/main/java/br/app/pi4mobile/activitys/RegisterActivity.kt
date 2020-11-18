@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Register : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -57,7 +57,7 @@ class Register : AppCompatActivity() {
                    override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
 
                         Toast.makeText(applicationContext, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show()
-                        startActivity(Intent(this@Register, Home::class.java))
+                        startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
                         
                    }
 
