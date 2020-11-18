@@ -5,10 +5,7 @@ import br.app.pi4mobile.models.LoginResponse
 import br.app.pi4mobile.models.Product
 import br.app.pi4mobile.models.ProductResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Api {
 
@@ -31,4 +28,9 @@ interface Api {
 
     @GET("products")
     fun getProducts():Call<List<Product>>
+
+    @GET("product/{id}")
+    fun getProduct(
+        @Path("id") id: Int
+    ): Call<Product>
 }

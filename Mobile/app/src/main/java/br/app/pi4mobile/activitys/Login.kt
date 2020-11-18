@@ -1,9 +1,10 @@
-package br.app.pi4mobile
+package br.app.pi4mobile.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.LoginResponse
 import br.app.pi4mobile.storage.SharedPrefManager
