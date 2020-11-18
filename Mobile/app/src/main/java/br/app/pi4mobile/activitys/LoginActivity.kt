@@ -14,7 +14,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -42,7 +42,7 @@ class Login : AppCompatActivity() {
 
                             SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
                             Toast.makeText(applicationContext, "Login efetuado com sucesso!", Toast.LENGTH_LONG).show()
-                            startActivity(Intent(this@Login, Home::class.java))
+                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
 
                     }
 
@@ -58,7 +58,7 @@ class Login : AppCompatActivity() {
         super.onStart()
 
         if(SharedPrefManager.getInstance(this).isLoggedIn){
-            val intent = Intent(applicationContext, Home::class.java)
+            val intent = Intent(applicationContext, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
             startActivity(intent)
