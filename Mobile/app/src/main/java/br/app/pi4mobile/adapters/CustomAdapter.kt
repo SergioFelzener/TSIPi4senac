@@ -11,11 +11,15 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.models.Category
+import br.app.pi4mobile.models.Photo
 import br.app.pi4mobile.models.Product
+import br.app.pi4mobile.models.ProductResponse
 import kotlinx.android.synthetic.main.card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.Serializable
 
 
 class CustomAdapter(
@@ -39,20 +43,24 @@ class CustomAdapter(
             itemView.setOnClickListener { v: View ->
                 val position = adapterPosition
                 RetrofitClient.instance.getProduct(id = product[position].id)
-                    .enqueue(object: Callback<Product>{
+                    .enqueue(object: Callback<ProductResponse>{
                         override fun onResponse(
-                            call: Call<Product>,
-                            response: Response<Product>
+                            call: Call<ProductResponse>,
+                            response: Response<ProductResponse>
                         ) {
-                            val productReturn = response.body()!!
-                            val intent = Intent(v.context, br.app.pi4mobile.activitys.Product::class.java)
+                            val photos:List<Photo> = response.body()!!.photos
+                            val categories:List<Category> = response.body()!!.categories
+                            val productReturn = response.body()!!.product
+                            val intent = Intent(v.context, br.app.pi4mobile.activitys.ProductActivity::class.java)
                             intent.putExtra("name", productReturn.name)
                             intent.putExtra("description", productReturn.description)
                             intent.putExtra("valor", productReturn.price)
+                            intent.putExtra("categories", categories as Serializable)
+                            intent.putExtra("photos", photos as Serializable)
                             v.context.startActivity(intent)
                         }
 
-                        override fun onFailure(call: Call<Product>, t: Throwable) {
+                        override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
                             Toast.makeText(v.context, "Não foi encontrado este produto", Toast.LENGTH_SHORT).show()
                         }
 
@@ -79,33 +87,4 @@ class CustomAdapter(
     override fun getItemCount(): Int {
         return product.size
     }
-
-
-//    private val items: MutableList<CardView>
-//
-//    init {
-//        this.items = ArrayList()
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val v = LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false)
-//
-//        return ViewHolder(v)
-//    }
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.tvTitle.text = product[position].name
-//
-//        items.add(holder.card )
-//    }
-//
-//    override fun getItemCount(): Int { return product.size }
-//
-//    inner class ViewHolder
-//    internal constructor(
-//        itemView: View
-//    ) : RecyclerView.ViewHolder(itemView){
-//        val tvTitle: TextView = itemView.tvTitle
-//        val card: CardView = itemView.card
-//    }
 }

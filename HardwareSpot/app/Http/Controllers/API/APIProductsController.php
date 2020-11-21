@@ -9,11 +9,13 @@ use App\Models\Product;
 
 class APIProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $product;
+
+    public function __construct(Product $product){
+        $this->product = $product;
+
+    }
+    
     public function index()
     {
         return response()->json(Product::with('categories','photos')->get());
@@ -40,7 +42,13 @@ class APIProductsController extends Controller
     {
         $product = Product::find($id);
 
-        return response()->json($product);
+        //dd($product::with('categories','photos')->first());
+
+        return response()->json([
+            'product' => $product, 
+            'photos' => $product->photos()->get(),
+            'categories' => $product->categories()->get()     
+        ]);
     }
 
     /**

@@ -177,7 +177,7 @@ class APICartController extends Controller
             ProductOrder::create([
                 'order_id' => $order,
                 'product_id' => $product->id,
-                'price' => $product->price - ($product->price * ($product->discount / 100) * $prod->amount),
+                'price' => $product->price - ($product->price * ($product->descount / 100) * $prod->amount),
                 'amount' => $prod->amount
             ]);
 
