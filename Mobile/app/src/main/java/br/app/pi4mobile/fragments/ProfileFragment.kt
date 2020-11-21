@@ -5,22 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import br.app.pi4mobile.R
+import br.app.pi4mobile.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.fragment_profile.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
 
+        val shared = SharedPrefManager.getInstance(requireContext())
+        if(shared.isLoggedIn){
+
+            btnLogout.setOnClickListener {
+                shared.clear()
+            }
+        }else{
+            btnLogout.text = "opa"
+        }
+
+        super.onActivityCreated(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

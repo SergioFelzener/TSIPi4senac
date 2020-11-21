@@ -1,6 +1,8 @@
 package br.app.pi4mobile.storage
 
 import android.content.Context
+import android.content.Intent
+import br.app.pi4mobile.activitys.HomeActivity
 import br.app.pi4mobile.models.User
 
 class SharedPrefManager private constructor(private val mCtx: Context) {
@@ -44,6 +46,11 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
+
+        var i: Intent = Intent(mCtx, HomeActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        mCtx.startActivity(i)
     }
 
     companion object {
