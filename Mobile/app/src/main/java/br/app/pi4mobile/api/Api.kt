@@ -32,5 +32,5 @@ interface Api {
     @GET("product/{id}")
     fun getProduct(
         @Path("id") id: Int
-    ): Call<Product>
+    ): Call<ProductResponse>
 }
