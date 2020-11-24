@@ -26,11 +26,19 @@ class APICartController extends Controller
 
             foreach ($cart as $c) {
 
-                $c = Product::all()->find($c->product_id);
-                array_push($products, $c);
+                $product = Product::find($c->product_id);
+                //dd($c);
+
+                //dd($c);
+                $amount = ($c->amount);
+                $product->amount = $amount;
+                array_push($products, $product);
             }
 
+            //dd($products);
+
             return response()->json($products);
+
         } else {
 
             return response()->json(["error" => "Não há produtos no carrinho"], 400);
@@ -102,6 +110,7 @@ class APICartController extends Controller
             $amount = $checkCart->amount;
 
             $checkCart->update(['amount' => $amount - 1]);
+
         } else {
 
             $checkCart->delete();
@@ -160,7 +169,7 @@ class APICartController extends Controller
         $this->insertOrder($user, $order->id);
 
         //removendo produtos do carrinho
-        $this->deleteData($user);
+        $this->delete($user);
 
         return response()->json(["success" => "Parabéns! Compra finalizada com sucesso!"]);
     }

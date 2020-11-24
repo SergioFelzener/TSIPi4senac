@@ -32,5 +32,11 @@ class Product extends Model
     public function getCategories(){
         return response()->json(Category::with('product','photos')->get());
 
-    } 
+    }
+    
+    public function cart(){ 
+
+        return $this->belongsToMany(Cart::class)->withPivot('amount');
+
+    }
 }
