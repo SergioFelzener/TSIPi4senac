@@ -41,4 +41,12 @@ interface Api {
         @Field("email") email: String,
         @Field("password") password: String
     ):Call<User>
+
+    @GET("categories")
+    fun getCategories():Call<List<Category>>
+
+    @GET("category/{id}")
+    fun getCategory(
+        @Path("id") id: Int
+    ): Call<CategoryResponse>
 }

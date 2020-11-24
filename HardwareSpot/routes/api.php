@@ -40,6 +40,7 @@ Route::post('/register', [APIUserController::class, 'store']);
 Route::get('/products', [APIProductsController::class, 'index']);
 Route::get('/product/{id}', [APIProductsController::class, 'show']);
 Route::get('categories', [APICategoriesController::class, 'index']);
+Route::get('category/{id}', [APICategoriesController::class, 'show']);
 
 
 
