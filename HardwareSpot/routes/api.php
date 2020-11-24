@@ -41,6 +41,8 @@ Route::get('/products', [APIProductsController::class, 'index']);
 Route::get('/product/{id}', [APIProductsController::class, 'show']);
 Route::get('categories', [APICategoriesController::class, 'index']);
 
+Route::get('/search-product/{name}', [APIProductsController::class, 'searchProducts']);
+
 
 
 

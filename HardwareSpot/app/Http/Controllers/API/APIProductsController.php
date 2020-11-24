@@ -42,13 +42,43 @@ class APIProductsController extends Controller
     {
         $product = Product::find($id);
 
+        //dd($product);
+
+        //verificando se tem protudo
+        if ($product) { 
+
+            return response()->json([
+                'product' => $product, 
+                'photos' => $product->photos()->get(),
+                'categories' => $product->categories()->get(),
+                'success' => 'Produto' . $product . ' - Está cadastrado no sistema'     
+            ]);
+
+        }else { 
+
+            return response()->json(['Error' => 'Produto não existe na base de dados'], 404);
+
+        }
+
         //dd($product::with('categories','photos')->first());
 
-        return response()->json([
-            'product' => $product, 
-            'photos' => $product->photos()->get(),
-            'categories' => $product->categories()->get()     
-        ]);
+        
+    }
+
+    public function searchProducts($product) { 
+
+        $products = Product::selectRaw('products.*')->where('products.name', 'LIKE' , '%' . $product . '%')->orderBy('name')->get();
+        //dd($products);
+
+        if ($products->count() > 0 ) { 
+
+            return response()->json(['product' => $products,
+                                     'photos' => ' ']); 
+        } else { 
+
+            return response()->json(['Error' => 'Produto não Existe da Base de Dados'], 404);
+        }
+
     }
 
     /**
