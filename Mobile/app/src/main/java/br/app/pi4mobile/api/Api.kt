@@ -41,4 +41,10 @@ interface Api {
         @Field("email") email: String,
         @Field("password") password: String
     ):Call<User>
+
+    @GET("cart")
+    fun getCartItems(): Call<List<Product>>
+
+    @DELETE("remove-prod/{id}")
+     fun deleteCartItem(): Void
 }
