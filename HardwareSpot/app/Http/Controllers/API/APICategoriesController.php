@@ -15,7 +15,7 @@ class APICategoriesController extends Controller
      */
     public function index()
     {
-        return response()->json(Category::with('categories')->get());
+        return response()->json(Category::all());
     }
 
     /**
@@ -38,8 +38,8 @@ class APICategoriesController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-
-        return response()->json(['category' => $category]);
+        $products = $category->products()->get();
+        return response()->json(['category' => $category, 'products' => $products]);
     }
 
     /**
