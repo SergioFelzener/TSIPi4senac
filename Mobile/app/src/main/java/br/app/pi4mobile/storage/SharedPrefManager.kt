@@ -17,11 +17,11 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         get() {
             val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
             return User(
-                sharedPreferences.getInt("id", -1),
+                sharedPreferences.getInt("id", 0),
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("name", null),
                 sharedPreferences.getString("password", null),
-                sharedPreferences.getString("profilePhoto", null)
+                sharedPreferences.getString("profile_photo_url", null)
             )
         }
 
@@ -35,7 +35,7 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         editor.putString("email", user.email)
         editor.putString("name", user.name)
         editor.putString("password", user.password)
-        editor.putString("profilePhoto", user.profilePhoto)
+        editor.putString("profile_photo_url", user.profile_photo_url)
 
         editor.apply()
 

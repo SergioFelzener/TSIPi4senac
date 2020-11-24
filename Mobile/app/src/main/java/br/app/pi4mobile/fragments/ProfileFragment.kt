@@ -13,6 +13,7 @@ import br.app.pi4mobile.R
 import br.app.pi4mobile.activitys.LoginActivity
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.UpdateResponse
+import br.app.pi4mobile.models.User
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
@@ -42,18 +43,24 @@ class ProfileFragment : Fragment() {
                 val email = etEmailProfile.text.toString().trim()
                 val password = etPasswordProfile.text.toString().trim()
 
-                RetrofitClient.instance.updateUser(id = shared.user.id, name = name,email = email, password = password)
-                    .enqueue(object : Callback<UpdateResponse> {
+                RetrofitClient.instance.updateUser(id = shared.user.id, name = name, email = email,password = password)
+                    .enqueue(object : Callback<User> {
                         override fun onResponse(
-                            call: Call<UpdateResponse>,
-                            response: Response<UpdateResponse>
+                            call: Call<User>,
+                            response: Response<User>
                         ) {
-                            shared.saveUser(response.body()!!.user)
-                            Toast.makeText(context, response.body()?.message,Toast.LENGTH_LONG)
+                            if (response.body() != null){
+                                shared.saveUser(response.body()!!)
+                                Toast.makeText(context, "Deu certo",Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(context, "DEU MERDA ${shared.user.id}",Toast.LENGTH_LONG).show()
+
+                            }
+
                         }
 
-                        override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
-                            Toast.makeText(context, t.message, Toast.LENGTH_LONG)
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
                         }
 
                     })

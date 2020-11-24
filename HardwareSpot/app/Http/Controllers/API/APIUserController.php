@@ -96,19 +96,16 @@ class APIUserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->update([
-            'name' => $request->name
-        ]);
-        
-        if($user->email != $request->email){
-            $user->email = $request->email;
-            $user->email_verified_at = null;
-        }
-        if($request->password)
-            $user->password = Hash::make($request->password);
-        $user->save();
+        $user->name = $request->name;
 
-        return response()->json(["message" => "Usuário atualizado com sucesso", "user" => $user] );
+        if($user->email != $request->email) {
+            $user->email = $request->email;
+        }
+        if($user->password != $request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return response()->json($user);
     }
 
     /**

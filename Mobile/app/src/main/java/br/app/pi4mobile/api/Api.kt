@@ -34,11 +34,11 @@ interface Api {
     ): Call<ProductResponse>
 
     @FormUrlEncoded
-    @PUT("users/{id}")
+    @PUT("updateUser/{id}")
     fun updateUser(
         @Path("id") id: Int,
         @Field("name") name: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ):Call<UpdateResponse>
+    ):Call<User>
 }
