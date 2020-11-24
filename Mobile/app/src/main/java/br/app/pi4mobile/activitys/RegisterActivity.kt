@@ -7,6 +7,7 @@ import android.widget.Toast
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.DefaultResponse
+import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,8 +17,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-       btnLogin.setOnClickListener {
+        btnLogin.setOnClickListener {
 
            val name = etNameRegister.text.toString().trim()
            val email = etEmailRegister.text.toString().trim()
@@ -56,6 +56,7 @@ class RegisterActivity : AppCompatActivity() {
                .enqueue(object: Callback<DefaultResponse>{
                    override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
 
+                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()!!.user)
                         Toast.makeText(applicationContext, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
                         

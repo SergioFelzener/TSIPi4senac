@@ -9,28 +9,17 @@
 <!--    <RelativeLayout-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent">-->
+
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/poppins_medium"
         android:text="O que você está procurando?"
         android:textSize="27sp" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="270dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:fontFamily="@font/poppins_medium"
-        android:hint="Placa de video?"
-        android:inputType="textPersonName" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"

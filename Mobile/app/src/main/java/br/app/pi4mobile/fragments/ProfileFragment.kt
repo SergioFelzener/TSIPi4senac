@@ -1,26 +1,77 @@
 package br.app.pi4mobile.fragments
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import br.app.pi4mobile.R
+import br.app.pi4mobile.activitys.LoginActivity
+import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.models.UpdateResponse
+import br.app.pi4mobile.models.User
+import br.app.pi4mobile.storage.SharedPrefManager
+import kotlinx.android.synthetic.main.fragment_profile.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
 
+        val shared = SharedPrefManager.getInstance(requireContext())
+
+        if(!shared.isLoggedIn){
+
+            val i = Intent(context, LoginActivity::class.java)
+            startActivity(i)
+        }else{
+            etEmailProfile.setText(shared.user.email)
+            etPasswordProfile.setText(shared.user.password)
+            etNameProfile.setText(shared.user.name)
+
+            btnEditProfile.setOnClickListener {
+
+                val name = etNameProfile.text.toString().trim()
+                val email = etEmailProfile.text.toString().trim()
+                val password = etPasswordProfile.text.toString().trim()
+
+                RetrofitClient.instance.updateUser(id = shared.user.id, name = name, email = email,password = password)
+                    .enqueue(object : Callback<User> {
+                        override fun onResponse(
+                            call: Call<User>,
+                            response: Response<User>
+                        ) {
+                            if (response.body() != null){
+                                shared.saveUser(response.body()!!)
+                                Toast.makeText(context, "Deu certo",Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(context, "DEU MERDA ${shared.user.id}",Toast.LENGTH_LONG).show()
+
+                            }
+
+                        }
+
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                        }
+
+                    })
+            }
+            btnLogout.setOnClickListener {
+                shared.clear()
+            }
+        }
+
+        super.onActivityCreated(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
