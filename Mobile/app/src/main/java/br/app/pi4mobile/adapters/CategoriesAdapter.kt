@@ -9,12 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import br.app.pi4mobile.R
 import br.app.pi4mobile.activitys.CategoryActivity
-import br.app.pi4mobile.activitys.ProductActivity
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Category
-import br.app.pi4mobile.models.CategoryResponse
 import br.app.pi4mobile.models.Photo
-import br.app.pi4mobile.models.ProductResponse
+import br.app.pi4mobile.models.Product
+import br.app.pi4mobile.models.response.CategoryResponse
 import kotlinx.android.synthetic.main.card_category.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,10 +54,27 @@ class CategoriesAdapter(var context: Context, var categories: List<Category>): B
                         response: Response<CategoryResponse>
                     ) {
 
-                        val category: Category = response.body()!!.category
-                        val intent = Intent(v.context, CategoryActivity::class.java)
-                        intent.putExtra("category", category)
-                        v.context.startActivity(intent)
+                        if(response.body() != null) {
+                            val intent = Intent(v.context, CategoryActivity::class.java)
+                            val category: Category = response.body()!!.category
+                            val products: List<Product> = response.body()!!.products
+
+                            if (category.description != null) {
+                                intent.putExtra("category", category)
+                                intent.putExtra("products", products as Serializable)
+                            } else {
+                                intent.putExtra("category_name", category.name)
+                                intent.putExtra("products", products as Serializable)
+                            }
+
+
+
+
+                            v.context.startActivity(intent)
+                        }
+
+
+
                     }
 
                     override fun onFailure(call: Call<CategoryResponse>, t: Throwable) {

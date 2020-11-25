@@ -1,7 +1,10 @@
 package br.app.pi4mobile.api
 
 import br.app.pi4mobile.models.*
-import okhttp3.ResponseBody
+import br.app.pi4mobile.models.response.CategoryResponse
+import br.app.pi4mobile.models.response.DefaultResponse
+import br.app.pi4mobile.models.response.LoginResponse
+import br.app.pi4mobile.models.response.ProductResponse
 import retrofit2.Call
 import retrofit2.http.*
 

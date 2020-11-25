@@ -1,5 +1,9 @@
 package br.app.pi4mobile.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Product (
     val id: Int,
     val name: String,
@@ -7,8 +11,6 @@ data class Product (
     val price: String,
     val descount: String,
     val quantity: String,
-    val slug: String,
-    val categories: List<Category>,
-    val photos: List<Photo>
+    val slug: String
 
-)
+): Parcelable

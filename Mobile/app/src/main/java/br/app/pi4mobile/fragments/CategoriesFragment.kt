@@ -11,7 +11,7 @@ import br.app.pi4mobile.R
 import br.app.pi4mobile.adapters.CategoriesAdapter
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Category
-import br.app.pi4mobile.models.DefaultResponse
+import br.app.pi4mobile.models.response.DefaultResponse
 import kotlinx.android.synthetic.main.fragment_categories.*
 import retrofit2.Call
 import retrofit2.Callback

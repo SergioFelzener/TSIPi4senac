@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
-import br.app.pi4mobile.models.DefaultResponse
+import br.app.pi4mobile.models.response.DefaultResponse
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call

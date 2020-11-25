@@ -1,3 +1,6 @@
-package br.app.pi4mobile.models
+package br.app.pi4mobile.models.response
 
-data class CategoryResponse(val category: Category)
+import br.app.pi4mobile.models.Category
+import br.app.pi4mobile.models.Product
+
+data class CategoryResponse(val category: Category, val products: List<Product>)
