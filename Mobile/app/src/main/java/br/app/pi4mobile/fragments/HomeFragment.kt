@@ -11,12 +11,10 @@ import br.app.pi4mobile.R
 import br.app.pi4mobile.adapters.CustomAdapter
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Product
-import br.app.pi4mobile.models.ProductResponse
 import kotlinx.android.synthetic.main.fragment_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.StringBuilder
 
 class HomeFragment : Fragment() {
 

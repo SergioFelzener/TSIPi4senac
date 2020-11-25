@@ -19,12 +19,8 @@ class Category extends Model
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug');
 
     }
-
-    public function categories(){
-        return $this->belongsToMany(Product::class);
-    }
     public function products(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Product::class);
     }
 
 

@@ -14,7 +14,7 @@ import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.Category
 import br.app.pi4mobile.models.Photo
 import br.app.pi4mobile.models.Product
-import br.app.pi4mobile.models.ProductResponse
+import br.app.pi4mobile.models.response.ProductResponse
 import kotlinx.android.synthetic.main.card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
