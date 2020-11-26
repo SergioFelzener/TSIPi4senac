@@ -17,7 +17,7 @@ class APIOrder extends Controller
         return Order::all()->where('user_id', $id);
     }
 
-    private function productsOrder(int $id) {
+    private function orderProduct(int $id) {
 
         return ProductOrder::all()->where('order_id', $id);
 
@@ -26,7 +26,10 @@ class APIOrder extends Controller
     public function myOrders(){
 
         $userId = auth()->user()->id;
+
         $orders = $this->userOrders($userId);
+
+        //dd($orders);
 
         if ($orders->count() > 0 ) { 
 
@@ -41,13 +44,13 @@ class APIOrder extends Controller
     public function showProducts($id) {
 
         //Produtos do pedido
-        $productsOrder = $this->productsOrder($id);
+        $orderProduct = $this->orderProduct($id);
 
-        $total = number_format($productsOrder->sum('price'), 2, ',', '');
+        $total = number_format($orderProduct->sum('price'), 2, ',', '');
 
-        foreach($productsOrder as $product){ 
+        foreach($orderProduct as $product){ 
 
-            $userProducts[] = Product::withTrashed()->find($product->product_id);
+            $userProducts[] = Product::find($product->product_id);
 
             $price[] = $product->price;
 
