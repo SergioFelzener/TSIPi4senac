@@ -37,7 +37,7 @@ class APICartController extends Controller
 
             //dd($products);
 
-            return response()->json($products);
+            return response()->json(['products' => $products]);
 
         } else {
 

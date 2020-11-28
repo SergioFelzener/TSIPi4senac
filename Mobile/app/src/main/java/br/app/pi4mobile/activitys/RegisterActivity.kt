@@ -55,8 +55,7 @@ class RegisterActivity : AppCompatActivity() {
            RetrofitClient.instance.register(name, email, password)
                .enqueue(object: Callback<DefaultResponse>{
                    override fun onResponse(call: Call<DefaultResponse>, response: Response<DefaultResponse>) {
-
-                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()!!.user)
+                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
                         Toast.makeText(applicationContext, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
                         
