@@ -4,6 +4,7 @@ import br.app.pi4mobile.models.*
 import br.app.pi4mobile.models.response.*
 import retrofit2.Call
 import retrofit2.http.*
+import java.time.temporal.TemporalAmount
 
 
 interface Api {
@@ -67,4 +68,11 @@ interface Api {
     fun removeProdOne(
         @Field("product_id") product_id: Int
     ): Call<RemoveProdResponse>
+
+    @FormUrlEncoded
+    @POST("cart")
+    fun addProductCart(
+        @Field("product_id") product_id: Int?,
+        @Field("amount") amount: Int
+    ): Call<AddProdResponse>
 }

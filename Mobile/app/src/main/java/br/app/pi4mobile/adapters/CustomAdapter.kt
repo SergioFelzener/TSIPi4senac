@@ -52,9 +52,7 @@ class CustomAdapter(
                             val categories:List<Category> = response.body()!!.categories
                             val productReturn = response.body()!!.product
                             val intent = Intent(v.context, br.app.pi4mobile.activitys.ProductActivity::class.java)
-                            intent.putExtra("name", productReturn.name)
-                            intent.putExtra("description", productReturn.description)
-                            intent.putExtra("valor", productReturn.price)
+                            intent.putExtra("product", productReturn)
                             intent.putExtra("categories", categories as Serializable)
                             intent.putExtra("photos", photos as Serializable)
                             v.context.startActivity(intent)

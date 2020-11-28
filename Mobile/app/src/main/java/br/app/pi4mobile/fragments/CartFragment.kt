@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.ProductModel
 import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.models.response.AddProdResponse
 import br.app.pi4mobile.models.response.CartResponse
 import br.app.pi4mobile.models.response.RemoveProdResponse
 import br.app.pi4mobile.storage.SharedPrefManager
@@ -33,10 +34,10 @@ class CartFragment : Fragment() {
                         call: Call<CartResponse>,
                         response: Response<CartResponse>
                     ) {
-                        tvMessage.visibility = View.GONE
                         val products: List<ProductModel>? = response.body()?.products
 
                         if (products != null) {
+                            tvMessage.visibility = View.GONE
                             for (p in products) {
 
                                 var card = this@CartFragment.layoutInflater.inflate(
@@ -53,17 +54,12 @@ class CartFragment : Fragment() {
                                     RetrofitClient.instance.removeProdOne(product_id = p.id)
                                         .enqueue(object : Callback<RemoveProdResponse> {
                                             override fun onResponse(
-                                                call: Call<RemoveProdResponse>,
-                                                response: Response<RemoveProdResponse>
-                                            ) {
+                                                call: Call<RemoveProdResponse>, response: Response<RemoveProdResponse>) {
                                                 Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
                                                 val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
                                                 ft.detach(this@CartFragment).attach(this@CartFragment).commit()
                                             }
-                                            override fun onFailure(
-                                                call: Call<RemoveProdResponse>,
-                                                t: Throwable
-                                            ) {
+                                            override fun onFailure(call: Call<RemoveProdResponse>, t: Throwable) {
                                                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                                             }
                                         })
@@ -71,39 +67,40 @@ class CartFragment : Fragment() {
                                 card.cartItemRemoveAll.setOnClickListener {
                                     RetrofitClient.instance.removeProd(product_id = p.id)
                                         .enqueue(object : Callback<RemoveProdResponse> {
+                                            override fun onResponse(call: Call<RemoveProdResponse>, response: Response<RemoveProdResponse>) {
+                                                Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
+                                                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+                                                ft.detach(this@CartFragment).attach(this@CartFragment).commit()
+                                            }
+                                            override fun onFailure(call: Call<RemoveProdResponse>, t: Throwable) {
+                                                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                                            }
+                                        })
+                                }
+                                card.cartAddItemIcon.setOnClickListener {
+                                    RetrofitClient.instance.addProductCart(product_id = p.id, amount = 1)
+                                        .enqueue(object : Callback<AddProdResponse>{
                                             override fun onResponse(
-                                                call: Call<RemoveProdResponse>,
-                                                response: Response<RemoveProdResponse>
+                                                call: Call<AddProdResponse>,
+                                                response: Response<AddProdResponse>
                                             ) {
                                                 Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
                                                 val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
                                                 ft.detach(this@CartFragment).attach(this@CartFragment).commit()
                                             }
-                                            override fun onFailure(
-                                                call: Call<RemoveProdResponse>,
-                                                t: Throwable
-                                            ) {
+
+                                            override fun onFailure(call: Call<AddProdResponse>, t: Throwable) {
                                                 Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                                             }
+
+
                                         })
                                 }
-
-
                                 this@CartFragment.cartItemsContainer.addView(card)
                             }
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Deu merda",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
-
-
                     }
-
                     override fun onFailure(call: Call<CartResponse>, t: Throwable) {
-
                         Log.e("ERROR", t.message.toString())
                     }
 

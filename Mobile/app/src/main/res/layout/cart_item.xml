@@ -64,11 +64,19 @@
                 android:layout_weight="1"
                 android:text="13999" />
         </LinearLayout>
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cartItemDeleteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="true"
+            app:backgroundTint="#00FFFFFF"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
@@ -88,16 +96,16 @@
                 android:layout_weight="1"
                 android:text="1" />
         </LinearLayout>
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cartItemDeleteIcon"
+            android:id="@+id/cartAddItemIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:clickable="true"
             app:backgroundTint="#00FFFFFF"
             app:elevation="0dp"
-            app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/cartItemRemoveAll"
