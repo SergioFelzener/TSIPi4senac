@@ -4,4 +4,4 @@ import br.app.pi4mobile.api.ProductModel
 import br.app.pi4mobile.models.Product
 
 
-data class CartResponse(val products: List<Product>)
+data class CartResponse(val products: List<ProductModel>)

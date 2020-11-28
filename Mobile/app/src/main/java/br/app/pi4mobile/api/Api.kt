@@ -56,5 +56,15 @@ interface Api {
         @Path("id") id: Int
     ): Call<CategoryResponse>
 
+    @FormUrlEncoded
+    @POST("remove-prod")
+    fun removeProd(
+        @Field("product_id") product_id: Int
+    ): Call<RemoveProdResponse>
 
+    @FormUrlEncoded
+    @POST("remove-prod-one")
+    fun removeProdOne(
+        @Field("product_id") product_id: Int
+    ): Call<RemoveProdResponse>
 }

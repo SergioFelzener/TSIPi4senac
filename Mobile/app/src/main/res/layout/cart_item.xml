@@ -99,5 +99,15 @@
             app:elevation="0dp"
             app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cartItemRemoveAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="true"
+            app:backgroundTint="#00FFFFFF"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_action_remove" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
