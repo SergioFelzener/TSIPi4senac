@@ -24,14 +24,14 @@ class APIUserController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
              return response()->json([["error" => "Credenciais incorretas."]], 401);         
         }
-
+        
+        $user->token = $user->createToken($request->device_name)->plainTextToken;
         return response()->json([
             'user' => $user,
             'status' => "Sucesso",
             'msg' => $user->email . " " . "Logado no sistema", 
-            'id' => $user->id,
-            'token' => $user->createToken($request->device_name)->plainTextToken]);
-
+            'id' => $user->id
+        ]);
     }
 
     public function logout(Request $request){
@@ -101,11 +101,11 @@ class APIUserController extends Controller
         if($user->email != $request->email) {
             $user->email = $request->email;
         }
-        if($user->password != $request->password) {
+        if($user->password != $request->password && $request->password != "") {
             $user->password = Hash::make($request->password);
         }
         $user->save();
-        return response()->json($user);
+        return response()->json(['user' => $user]);
     }
 
     /**

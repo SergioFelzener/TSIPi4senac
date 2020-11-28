@@ -1,9 +1,11 @@
 package br.app.pi4mobile.api
 
 data class UserModel (
-    var name: String = "",
-    var email: String = "",
-    var password: String = ""
+    val id: Int,
+    val email: String?,
+    val name: String?,
+    val password: String?,
+    val token: String?
 
 )
 

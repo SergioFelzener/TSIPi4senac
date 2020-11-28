@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import br.app.pi4mobile.R
 import br.app.pi4mobile.activitys.LoginActivity
 import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.api.UserModel
 import br.app.pi4mobile.models.User
+import br.app.pi4mobile.models.response.UpdateResponse
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
@@ -40,14 +42,14 @@ class ProfileFragment : Fragment() {
                 val email = etEmailProfile.text.toString().trim()
                 val password = etPasswordProfile.text.toString().trim()
 
-                RetrofitClient.instance.updateUser(id = shared.user.id, name = name, email = email,password = password)
-                    .enqueue(object : Callback<User> {
+                RetrofitClient.instance.updateUser(id = shared.user.id, name = name, email = email, password = password)
+                    .enqueue(object : Callback<UpdateResponse> {
                         override fun onResponse(
-                            call: Call<User>,
-                            response: Response<User>
+                            call: Call<UpdateResponse>,
+                            response: Response<UpdateResponse>
                         ) {
                             if (response.body() != null){
-                                shared.saveUser(response.body()!!)
+                                shared.saveUser(response.body()!!.user)
                                 Toast.makeText(context, "Deu certo",Toast.LENGTH_LONG).show()
                             }else{
                                 Toast.makeText(context, "DEU MERDA ${shared.user.id}",Toast.LENGTH_LONG).show()
@@ -56,13 +58,14 @@ class ProfileFragment : Fragment() {
 
                         }
 
-                        override fun onFailure(call: Call<User>, t: Throwable) {
+                        override fun onFailure(call: Call<UpdateResponse>, t: Throwable) {
                             Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
                         }
 
                     })
             }
             btnLogout.setOnClickListener {
+
                 shared.clear()
             }
         }

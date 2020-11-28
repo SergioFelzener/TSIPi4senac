@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.api.UserModel
+import br.app.pi4mobile.models.User
 import br.app.pi4mobile.models.response.LoginResponse
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.activity_login.*
@@ -33,16 +35,16 @@ class LoginActivity : AppCompatActivity() {
                 etPasswordLogin.requestFocus()
                 return@setOnClickListener
             }
-            RetrofitClient.instance.login(email, password,  "app")
+
+            RetrofitClient.instance.login(email, password,"app")
                 .enqueue(object: Callback<LoginResponse>{
                     override fun onResponse(
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
-
-                            SharedPrefManager.getInstance(applicationContext).saveUser(response.body()?.user!!)
-                            Toast.makeText(applicationContext, "Login efetuado com sucesso!", Toast.LENGTH_LONG).show()
-                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        SharedPrefManager.getInstance(applicationContext).saveUser(response.body()!!.user)
+                        Toast.makeText(applicationContext, "Login efetuado com sucesso!", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
 
                     }
 
@@ -51,6 +53,9 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                 })
+        }
+        tvRegister.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
     }
 
