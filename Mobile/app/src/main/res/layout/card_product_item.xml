@@ -30,7 +30,7 @@
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/cartItemName"
+                android:id="@+id/productItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -58,21 +58,13 @@
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/cartItemPrice"
+                android:id="@+id/productItemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="13999" />
         </LinearLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cartItemDeleteIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:clickable="true"
-            app:backgroundTint="#00FFFFFF"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,32 +82,13 @@
                 android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/cartItemQuantity"
+                android:id="@+id/productItemQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="1" />
         </LinearLayout>
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cartAddItemIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:clickable="true"
-            app:backgroundTint="#00FFFFFF"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cartItemRemoveAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:clickable="true"
-            app:backgroundTint="#00FFFFFF"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_action_remove" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

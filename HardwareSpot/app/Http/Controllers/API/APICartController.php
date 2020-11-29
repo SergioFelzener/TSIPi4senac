@@ -88,7 +88,7 @@ class APICartController extends Controller
         }
     }
 
-    public function removeProd(Request $request)
+    public function removeProdOne(Request $request)
     {
 
         if (!$request->product_id) {
@@ -115,9 +115,35 @@ class APICartController extends Controller
 
             $checkCart->delete();
         }
-
-        return response()->json(["success" => "Produto removido do carrinho com sucesso"]);
+        $product = Product::findOrFail($checkCart->product_id);
+        return response()->json(["success" => "{$product->name} uma unidade removida com sucesso"]);
     }
+
+    public function removeProd(Request $request)
+    {
+
+        if (!$request->product_id) {
+
+            return response()->json(["Error" => "Dados incompletos"], 400);
+        }
+
+        $user = auth()->user()->id;
+
+        $checkCart = Cart::all()->where('user_id', $user)->where('product_id', $request->product_id)->first();
+
+        if ($checkCart == null) {
+
+            return response()->json(["Error" => "Carrinho não encontrado"], 404);
+        }
+
+        if ($checkCart->amount > 0) {
+            $checkCart->delete();
+        }
+        $product = Product::findOrFail($checkCart->product_id);
+        return response()->json(["success" => "{$product->name} removido do carrinho com sucesso"]);
+    }
+
+
 
     public function removeCart()
     {
@@ -140,7 +166,7 @@ class APICartController extends Controller
         }
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
 
         $user = auth()->user()->id;
@@ -163,7 +189,7 @@ class APICartController extends Controller
         }
 
         //criando pedido
-        $order = Order::create(['user_id' => $user]);
+        $order = Order::create(['user_id' => $user, 'total' => $request->total]);
 
         // inserir as orders
         $this->insertOrder($user, $order->id);

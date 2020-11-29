@@ -12,5 +12,5 @@ data class ProductModel(
     val slug: String?,
     val created_at: String?,
     val updated_at: String?,
-    val amount: Int
+    var amount: Int
 )
