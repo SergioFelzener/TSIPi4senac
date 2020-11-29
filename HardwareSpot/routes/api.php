@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/cart', [APICartController::class, 'cart']);
     Route::get('/logout', [APIUserController::class, 'logout']);
     Route::post('/cart', [APICartController::class, 'store']);
-    Route::get('/checkout', [APICartController::class, 'checkout']);
+    Route::post('/checkout', [APICartController::class, 'checkout']);
     Route::post('/remove-prod-one', [APICartController::class, 'removeProdOne']);
     Route::post('/remove-prod', [APICartController::class, 'removeProd']);
     Route::get('/remove-cart', [APICartController::class, 'removeCart']);

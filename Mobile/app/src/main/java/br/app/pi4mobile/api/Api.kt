@@ -75,4 +75,11 @@ interface Api {
         @Field("product_id") product_id: Int?,
         @Field("amount") amount: Int
     ): Call<AddProdResponse>
+
+
+    @GET("orders")
+    fun getOrders(): Call<OrdersResponse>
+
+    @GET("order-products/{id}")
+    fun getOrder(@Path("id")id: Int): Call<OrderResponse>
 }

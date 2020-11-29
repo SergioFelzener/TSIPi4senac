@@ -166,7 +166,7 @@ class APICartController extends Controller
         }
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
 
         $user = auth()->user()->id;
@@ -189,7 +189,7 @@ class APICartController extends Controller
         }
 
         //criando pedido
-        $order = Order::create(['user_id' => $user]);
+        $order = Order::create(['user_id' => $user, 'total' => $request->total]);
 
         // inserir as orders
         $this->insertOrder($user, $order->id);
