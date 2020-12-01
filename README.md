@@ -39,7 +39,7 @@ Abra o projeto HardwareSpot
 
 ```
 
-Instale todas as depêndencias
+Instale todas as dependências
 
 ```
 
