@@ -26,15 +26,16 @@
 
         <TextView
             android:id="@+id/tvMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="282dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
 
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="300dp"
             android:text="Você não tem itens no seu carrinho"
+            android:textAlignment="center"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cartItemsView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:id="@+id/cartItemsView"
@@ -67,6 +68,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="60dp"
             android:backgroundTint="#4C668D"
+            android:fontFamily="@font/poppins_medium"
             android:text="Finalizar compra"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,11 +76,11 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
-            android:layout_width="229dp"
+            android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginStart="83dp"
+            android:layout_marginStart="30dp"
 
-            android:layout_marginEnd="99dp"
+            android:layout_marginEnd="30dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +90,9 @@
                 android:id="@+id/tvCartTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:text="Total:"
+                android:textColor="#222222"
                 android:textSize="24sp" />
 
             <TextView
@@ -96,7 +100,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAlignment="center"
+                android:fontFamily="sans-serif-light"
+                android:textAlignment="textEnd"
+                android:textColor="#222222"
                 android:textSize="24sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

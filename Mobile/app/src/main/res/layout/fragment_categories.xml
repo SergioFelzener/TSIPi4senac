@@ -32,9 +32,9 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
         android:columnWidth="150dp"
-        android:horizontalSpacing="15dp"
+        android:horizontalSpacing="30dp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="15dp"
+        android:verticalSpacing="30dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="91dp" />

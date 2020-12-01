@@ -8,16 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/userImage"
-        android:layout_width="113dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewProfile"
-        tools:src="@tools:sample/avatars[2]" />
-
     <EditText
         android:id="@+id/etPasswordProfile"
         android:layout_width="0dp"
@@ -26,7 +16,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-light"
         android:hint="Altere sua senha"
         android:inputType="textPassword"
         android:textColor="#4C4C4C"
@@ -40,9 +30,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-medium"
         android:text="Senha"
         android:textColor="#222222"
         android:textSize="18sp"
@@ -56,16 +46,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-medium"
         android:text="Email"
         android:textColor="#222222"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfile" />
 
     <EditText
         android:id="@+id/etEmailProfile"
@@ -75,9 +65,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-light"
         android:inputType="textPersonName"
-        android:textColor="#4C4C4C"
+        android:textColor="#222222"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +95,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-medium"
         android:text="Nome"
         android:textColor="#222222"
         android:textSize="18sp"
@@ -122,9 +112,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
         android:ems="10"
-        android:fontFamily="@font/poppins_medium"
+        android:fontFamily="sans-serif-light"
         android:inputType="textPersonName"
-        android:textColor="#505050"
+        android:textColor="#222222"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +125,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="30dp"
         android:backgroundTint="#4C668D"
         android:text="Editar"
@@ -148,7 +138,7 @@
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="30dp"
