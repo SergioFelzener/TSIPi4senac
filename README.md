@@ -3,7 +3,6 @@
 > Um app para você encontrar aquele hardware que falta no seu setup.
 
 ![GitHub watchers](https://img.shields.io/github/watchers/SergioFelzener/TSIPi4senac?color=%234C668D&logoColor=%234C668D&style=social)
-
 ![GitHub contributors](https://img.shields.io/github/contributors/SergioFelzener/TSIPi4senac?color=%234C668D&logoColor=%234C668D&style=social)
 
 <p align="center">
