@@ -16,23 +16,25 @@ class OrderActivity : AppCompatActivity() {
         val products = intent.getParcelableArrayListExtra<Product>("products")
         val prices = intent.getStringArrayListExtra("prices")
         val amounts = intent.getIntegerArrayListExtra("amounts")
-
+        val id  = intent.getStringExtra("id")
+        val total = intent.getStringExtra("total")
         if (products != null) {
-
-            for (p in products) {
+            for ((i, p) in products.withIndex()) {
 
                 var card = this@OrderActivity.layoutInflater.inflate(
                     R.layout.card_product_item,
                     productItemsContainer,
                     false
                 )
-
+                tvOrder.text = """Pedido $id"""
                 card.productItemName.text = p.name
-                card.productItemPrice.text = prices?.get(0).toString().trim()
-                card.productItemQuantity.text = amounts?.get(0).toString().trim()
-                productItemsContainer.addView(card)
+                card.productItemPrice.text = prices?.get(i).toString().trim()
+                card.productItemQuantity.text = amounts?.get(i).toString().trim()
 
+                productItemsContainer.addView(card)
             }
+
+            tvTotal.text = """R$ $total"""
         }
     }
 }

@@ -82,4 +82,9 @@ interface Api {
 
     @GET("order-products/{id}")
     fun getOrder(@Path("id")id: Int): Call<OrderResponse>
+
+    @FormUrlEncoded
+    @POST("checkout")
+    fun checkout(
+        @Field("total") total: Double): Call<CheckoutResponse>
 }

@@ -50,7 +50,7 @@ class OrdersFragment : Fragment() {
                     val orders: List<Order>? = response.body()?.orders
 
                     if (orders != null) {
-
+                        tvMessageOrders.visibility = View.GONE
                         for (o in orders){
                             var card = this@OrdersFragment.layoutInflater.inflate(
                                 R.layout.card_orders,
@@ -68,7 +68,7 @@ class OrdersFragment : Fragment() {
                                             call: Call<OrderResponse>,
                                             response: Response<OrderResponse>
                                         ) {
-                                            Toast.makeText(context, "OPA", Toast.LENGTH_SHORT).show()
+
                                             val prices: ArrayList<String>? = response.body()?.price
                                             val amounts: ArrayList<Int>? = response.body()?.amount
                                             val products: List<Product>? = response.body()?.products
@@ -78,6 +78,7 @@ class OrdersFragment : Fragment() {
                                             intent.putExtra("prices", prices)
                                             intent.putExtra("amounts", amounts)
                                             intent.putExtra("total", total)
+                                            intent.putExtra("id", o.id.toString().trim())
                                             context?.startActivity(intent)
                                         }
 

@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import br.app.pi4mobile.R
 import br.app.pi4mobile.api.RetrofitClient
+import br.app.pi4mobile.fragments.CartFragment
+import br.app.pi4mobile.fragments.HomeFragment
 import br.app.pi4mobile.models.Category
 import br.app.pi4mobile.models.Photo
 import br.app.pi4mobile.models.Product
@@ -18,6 +20,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductActivity : AppCompatActivity() {
+
+    lateinit var cartFragment: CartFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

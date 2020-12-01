@@ -46,8 +46,8 @@ class APIOrder extends Controller
         //Produtos do pedido
         $orderProduct = $this->orderProduct($id);
 
-        $total = number_format($orderProduct->sum('price'), 2, ',', '');
-
+        
+        $total = 0;
         foreach($orderProduct as $product){ 
 
             $userProducts[] = Product::find($product->product_id);
@@ -55,9 +55,9 @@ class APIOrder extends Controller
             $price[] = $product->price;
 
             $amount[] = $product->amount;
-
+            $total = $total + ($product->price * $product->amount);
         }
-
+        $total = number_format($total, 2, ',', '.');
         return response()->json([
             'products' => $userProducts, 
             'price' => $price,

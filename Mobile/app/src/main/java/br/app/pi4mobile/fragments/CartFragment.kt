@@ -13,6 +13,7 @@ import br.app.pi4mobile.api.ProductModel
 import br.app.pi4mobile.api.RetrofitClient
 import br.app.pi4mobile.models.response.AddProdResponse
 import br.app.pi4mobile.models.response.CartResponse
+import br.app.pi4mobile.models.response.CheckoutResponse
 import br.app.pi4mobile.models.response.RemoveProdResponse
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.cart_item.view.*
@@ -24,9 +25,9 @@ import retrofit2.Response
 class CartFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-
+        lateinit var ordersFragment: OrdersFragment
         val shared = SharedPrefManager.getInstance(requireContext())
-
+        var total = 0.0
             RetrofitClient.AUTH = """Bearer ${shared.user.token}"""
             RetrofitClient.instance.getCartItems()
                 .enqueue(object : Callback<CartResponse> {
@@ -35,7 +36,6 @@ class CartFragment : Fragment() {
                         response: Response<CartResponse>
                     ) {
                         val products: List<ProductModel>? = response.body()?.products
-
                         if (products != null) {
                             tvMessage.visibility = View.GONE
                             for (p in products) {
@@ -49,7 +49,8 @@ class CartFragment : Fragment() {
                                 card.cartItemName.text = p.name
                                 card.cartItemPrice.text = p.price
                                 card.cartItemQuantity.text = p.amount.toString().trim()
-
+                                total += p.price!!.toDouble()!! * p.amount!!
+                                tvTotalCart.text = """R$ $total"""
                                 card.cartItemDeleteIcon.setOnClickListener {
                                     RetrofitClient.instance.removeProdOne(product_id = p.id)
                                         .enqueue(object : Callback<RemoveProdResponse> {
@@ -98,6 +99,9 @@ class CartFragment : Fragment() {
                                 }
                                 this@CartFragment.cartItemsContainer.addView(card)
                             }
+                        }else{
+                            tvCartTotal.visibility = View.GONE
+                            checkoutBtn.visibility = View.GONE
                         }
                     }
                     override fun onFailure(call: Call<CartResponse>, t: Throwable) {
@@ -107,9 +111,29 @@ class CartFragment : Fragment() {
 
                 })
 
-        super.onActivityCreated(savedInstanceState)
-    }
+        checkoutBtn.setOnClickListener {
+            val total = tvTotalCart.text.toString().split(" ")
+            RetrofitClient.AUTH = """Bearer ${shared.user.token}"""
+            RetrofitClient.instance.checkout(total = total[1].toDouble())
+                .enqueue(object : Callback<CheckoutResponse>{
+                    override fun onResponse(
+                        call: Call<CheckoutResponse>,
+                        response: Response<CheckoutResponse>
+                    ) {
+                        Toast.makeText(context, response.body()?.success, Toast.LENGTH_LONG).show()
+                        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+                        ft.detach(this@CartFragment).attach(ordersFragment).commit()
+                    }
 
+                    override fun onFailure(call: Call<CheckoutResponse>, t: Throwable) {
+                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                    }
+
+                })
+        }
+        super.onActivityCreated(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

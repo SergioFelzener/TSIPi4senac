@@ -183,7 +183,7 @@ class APICartController extends Controller
                 return response()->json([
                     "ERRO" => "$product->name não tem em estoque",
                     "Quantidade em estoque" => $quantity,
-                    "Mesage" => "Pedido não realizado"
+                    "Message" => "Pedido não realizado"
                 ], 303);
             }
         }
@@ -212,7 +212,7 @@ class APICartController extends Controller
             ProductOrder::create([
                 'order_id' => $order,
                 'product_id' => $product->id,
-                'price' => $product->price - ($product->price * ($product->descount / 100) * $prod->amount),
+                'price' => $product->price,
                 'amount' => $prod->amount
             ]);
 

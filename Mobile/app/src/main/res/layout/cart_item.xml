@@ -64,6 +64,7 @@
                 android:layout_weight="1"
                 android:text="13999" />
         </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/cartItemDeleteIcon"
             android:layout_width="wrap_content"
