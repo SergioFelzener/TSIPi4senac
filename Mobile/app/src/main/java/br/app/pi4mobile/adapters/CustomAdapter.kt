@@ -15,6 +15,8 @@ import br.app.pi4mobile.models.Category
 import br.app.pi4mobile.models.Photo
 import br.app.pi4mobile.models.Product
 import br.app.pi4mobile.models.response.ProductResponse
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_product.*
 import kotlinx.android.synthetic.main.card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,7 +37,7 @@ class CustomAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val ivImage: ImageView = itemView.iv_image
-        val tvName: TextView = itemView.textViewName
+        val tvName: TextView = itemView.tvNameProduct
         val tvPrice: TextView = itemView.tvPrice
         val card: CardView = itemView.card
 
@@ -77,8 +79,7 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvName.text = product[position].name
         holder.tvPrice.text = product[position].price
-        holder.ivImage.setImageResource(R.drawable.ic_action_categories)
-
+        Picasso.get().load("""http://10.0.2.2:8000/storage/${product[position]?.photos?.get(0)?.image}""").into(holder.ivImage)
         items.add(holder.card)
     }
 
