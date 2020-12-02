@@ -11,7 +11,7 @@
 
 ### Sobre :question:
 
-Projeto desenvolvido para a matéria do 4 semestre, Projeto Integrador, do curso de Técnologia em Sistemas para Internet.
+Projeto desenvolvido para a matéria do 4 semestre, Projeto Integrador, do curso de Tecnologia em Sistemas para Internet.
 
 ### Tecnologias utilizadas :computer:
 
