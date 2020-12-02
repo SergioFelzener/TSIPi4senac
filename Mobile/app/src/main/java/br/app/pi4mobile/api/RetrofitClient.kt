@@ -20,7 +20,7 @@ object RetrofitClient {
 
             val requestBuilder = original.newBuilder()
                 .addHeader("Authorization", AUTH)
-                .addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "application/json; charset=UTF-8")
                 .method(original.method(), original.body())
 
             val request = requestBuilder.build()

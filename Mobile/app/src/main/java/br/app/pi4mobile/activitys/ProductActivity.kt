@@ -1,5 +1,6 @@
 package br.app.pi4mobile.activitys
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -38,22 +39,22 @@ class ProductActivity : AppCompatActivity() {
         Picasso.get().load("""http://10.0.2.2:8000/storage/${photos?.get(0)?.image}""").into(ivImage)
 
         btnComprar.setOnClickListener {
-
-            RetrofitClient.instance.addProductCart(product_id = product?.id, amount = 1)
-                .enqueue(object : Callback<AddProdResponse>{
-                    override fun onResponse(
-                        call: Call<AddProdResponse>,
-                        response: Response<AddProdResponse>
-                    ) {
-                        Toast.makeText(applicationContext, response.body()?.success, Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onFailure(call: Call<AddProdResponse>, t: Throwable) {
-                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-                    }
-
-
-                })
+            if(!shared.isLoggedIn){
+                val i = Intent(applicationContext, LoginActivity::class.java)
+                startActivity(i)
+            }else{
+                RetrofitClient.instance.addProductCart(product_id = product?.id, amount = 1)
+                    .enqueue(object : Callback<AddProdResponse>{
+                        override fun onResponse(call: Call<AddProdResponse>, response: Response<AddProdResponse>) {
+                            Toast.makeText(applicationContext, response.body()?.success, Toast.LENGTH_SHORT).show()
+                            val fragment = HomeFragment()
+                            supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
+                        }
+                        override fun onFailure(call: Call<AddProdResponse>, t: Throwable) {
+                            Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                        }
+                    })
+            }
         }
     }
 

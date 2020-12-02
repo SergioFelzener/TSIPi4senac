@@ -1,3 +1,3 @@
 package br.app.pi4mobile.models.response
 
-data class CheckoutResponse(val success: String)
+data class CheckoutResponse(val message: String)
