@@ -27,7 +27,7 @@ interface Api {
     ): Call<LoginResponse>
 
     @GET("products")
-    fun getProducts(): Call<List<Product>>
+    fun getProducts(): Call<ProductsResponse>
 
     @GET("product/{id}")
     fun getProduct(
@@ -87,4 +87,9 @@ interface Api {
     @POST("checkout")
     fun checkout(
         @Field("total") total: Double): Call<CheckoutResponse>
+
+    @GET("search-product/{name}")
+    fun search_product(
+        @Path("name") name: String
+    ): Call<SearchResponse>
 }

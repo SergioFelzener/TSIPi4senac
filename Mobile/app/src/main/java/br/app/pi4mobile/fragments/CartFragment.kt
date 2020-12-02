@@ -18,14 +18,15 @@ import br.app.pi4mobile.models.response.RemoveProdResponse
 import br.app.pi4mobile.storage.SharedPrefManager
 import kotlinx.android.synthetic.main.cart_item.view.*
 import kotlinx.android.synthetic.main.fragment_cart.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class CartFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        lateinit var ordersFragment: OrdersFragment
         val shared = SharedPrefManager.getInstance(requireContext())
         var total = 0.0
             RetrofitClient.AUTH = """Bearer ${shared.user.token}"""
@@ -37,7 +38,9 @@ class CartFragment : Fragment() {
                     ) {
                         val products: List<ProductModel>? = response.body()?.products
                         if (products != null) {
-                            tvMessage.visibility = View.GONE
+                            if (tvMessage.visibility != View.GONE) {
+                                tvMessage.visibility = View.GONE
+                            }
                             for (p in products) {
 
                                 var card = this@CartFragment.layoutInflater.inflate(
@@ -49,49 +52,84 @@ class CartFragment : Fragment() {
                                 card.cartItemName.text = p.name
                                 card.cartItemPrice.text = p.price
                                 card.cartItemQuantity.text = p.amount.toString().trim()
-                                total += p.price!!.toDouble()!! * p.amount!!
+                                total += p.price!!.toDouble() * p.amount!!
                                 tvTotalCart.text = """R$ $total"""
                                 card.cartItemDeleteIcon.setOnClickListener {
                                     RetrofitClient.instance.removeProdOne(product_id = p.id)
                                         .enqueue(object : Callback<RemoveProdResponse> {
                                             override fun onResponse(
-                                                call: Call<RemoveProdResponse>, response: Response<RemoveProdResponse>) {
-                                                Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
-                                                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-                                                ft.detach(this@CartFragment).attach(this@CartFragment).commit()
+                                                call: Call<RemoveProdResponse>,
+                                                response: Response<RemoveProdResponse>
+                                            ) {
+                                                Toast.makeText(context,
+                                                    response.body()?.success,
+                                                    Toast.LENGTH_SHORT).show()
+                                                val ft: FragmentTransaction =
+                                                    fragmentManager!!.beginTransaction()
+                                                ft.detach(this@CartFragment)
+                                                    .attach(this@CartFragment).commit()
                                             }
-                                            override fun onFailure(call: Call<RemoveProdResponse>, t: Throwable) {
-                                                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+
+                                            override fun onFailure(
+                                                call: Call<RemoveProdResponse>,
+                                                t: Throwable
+                                            ) {
+                                                Toast.makeText(context,
+                                                    t.message,
+                                                    Toast.LENGTH_SHORT).show()
                                             }
                                         })
                                 }
                                 card.cartItemRemoveAll.setOnClickListener {
                                     RetrofitClient.instance.removeProd(product_id = p.id)
                                         .enqueue(object : Callback<RemoveProdResponse> {
-                                            override fun onResponse(call: Call<RemoveProdResponse>, response: Response<RemoveProdResponse>) {
-                                                Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
-                                                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-                                                ft.detach(this@CartFragment).attach(this@CartFragment).commit()
+                                            override fun onResponse(
+                                                call: Call<RemoveProdResponse>,
+                                                response: Response<RemoveProdResponse>
+                                            ) {
+                                                Toast.makeText(context,
+                                                    response.body()?.success,
+                                                    Toast.LENGTH_SHORT).show()
+                                                val ft: FragmentTransaction =
+                                                    fragmentManager!!.beginTransaction()
+                                                ft.detach(this@CartFragment)
+                                                    .attach(this@CartFragment).commit()
                                             }
-                                            override fun onFailure(call: Call<RemoveProdResponse>, t: Throwable) {
-                                                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+
+                                            override fun onFailure(
+                                                call: Call<RemoveProdResponse>,
+                                                t: Throwable
+                                            ) {
+                                                Toast.makeText(context,
+                                                    t.message,
+                                                    Toast.LENGTH_SHORT).show()
                                             }
                                         })
                                 }
                                 card.cartAddItemIcon.setOnClickListener {
-                                    RetrofitClient.instance.addProductCart(product_id = p.id, amount = 1)
-                                        .enqueue(object : Callback<AddProdResponse>{
+                                    RetrofitClient.instance.addProductCart(product_id = p.id,
+                                        amount = 1)
+                                        .enqueue(object : Callback<AddProdResponse> {
                                             override fun onResponse(
                                                 call: Call<AddProdResponse>,
                                                 response: Response<AddProdResponse>
                                             ) {
-                                                Toast.makeText(context, response.body()?.success, Toast.LENGTH_SHORT).show()
-                                                val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-                                                ft.detach(this@CartFragment).attach(this@CartFragment).commit()
+                                                Toast.makeText(context,
+                                                    response.body()?.success,
+                                                    Toast.LENGTH_SHORT).show()
+                                                val ft: FragmentTransaction =
+                                                    fragmentManager!!.beginTransaction()
+                                                ft.detach(this@CartFragment)
+                                                    .attach(this@CartFragment).commit()
                                             }
 
-                                            override fun onFailure(call: Call<AddProdResponse>, t: Throwable) {
-                                                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                                            override fun onFailure(
+                                                call: Call<AddProdResponse>,
+                                                t: Throwable
+                                            ) {
+                                                Toast.makeText(context,
+                                                    t.message,
+                                                    Toast.LENGTH_SHORT).show()
                                             }
 
 
@@ -99,11 +137,12 @@ class CartFragment : Fragment() {
                                 }
                                 this@CartFragment.cartItemsContainer.addView(card)
                             }
-                        }else{
+                        } else {
                             tvCartTotal.visibility = View.GONE
                             checkoutBtn.visibility = View.GONE
                         }
                     }
+
                     override fun onFailure(call: Call<CartResponse>, t: Throwable) {
                         Log.e("ERROR", t.message.toString())
                     }
@@ -115,18 +154,27 @@ class CartFragment : Fragment() {
             val total = tvTotalCart.text.toString().split(" ")
             RetrofitClient.AUTH = """Bearer ${shared.user.token}"""
             RetrofitClient.instance.checkout(total = total[1].toDouble())
-                .enqueue(object : Callback<CheckoutResponse>{
+                .enqueue(object : Callback<CheckoutResponse> {
                     override fun onResponse(
                         call: Call<CheckoutResponse>,
                         response: Response<CheckoutResponse>
                     ) {
-                        Toast.makeText(context, response.body()?.success, Toast.LENGTH_LONG).show()
-                        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-                        ft.detach(this@CartFragment).attach(ordersFragment).commit()
+                        if (response.body()?.message != null) {
+                            Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG)
+                                .show()
+                            var ordersFragment = OrdersFragment()
+                            fragmentManager!!.beginTransaction().replace(R.id.frame_layout,
+                                ordersFragment).commit()
+                        } else {
+                            val jObjError = JSONObject(response.errorBody()!!.string())
+                            Toast.makeText(context, jObjError.get("message").toString(), Toast.LENGTH_LONG).show()
+                        }
+
+
                     }
 
                     override fun onFailure(call: Call<CheckoutResponse>, t: Throwable) {
-                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "opa nao tem", Toast.LENGTH_LONG).show()
                     }
 
                 })

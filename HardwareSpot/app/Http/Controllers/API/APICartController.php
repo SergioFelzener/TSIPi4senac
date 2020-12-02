@@ -181,9 +181,7 @@ class APICartController extends Controller
 
             if ($prod->amount > $quantity) {
                 return response()->json([
-                    "ERRO" => "$product->name não tem em estoque",
-                    "Quantidade em estoque" => $quantity,
-                    "Message" => "Pedido não realizado"
+                    "message" => "Pedido não realizado, o $product->name não tem em estoque",
                 ], 303);
             }
         }
@@ -197,7 +195,7 @@ class APICartController extends Controller
         //removendo produtos do carrinho
         $this->delete($user);
 
-        return response()->json(["success" => "Parabéns! Compra finalizada com sucesso!"]);
+        return response()->json(["message" => "Parabéns! Compra finalizada com sucesso!"]);
     }
 
     private function insertOrder(int $user, int $order)
