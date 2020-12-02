@@ -40,6 +40,7 @@ class ProductActivity : AppCompatActivity() {
 
         btnComprar.setOnClickListener {
             if(!shared.isLoggedIn){
+                Toast.makeText(applicationContext, "Faça o login para comprar!", Toast.LENGTH_SHORT).show()
                 val i = Intent(applicationContext, LoginActivity::class.java)
                 startActivity(i)
             }else{
@@ -47,8 +48,8 @@ class ProductActivity : AppCompatActivity() {
                     .enqueue(object : Callback<AddProdResponse>{
                         override fun onResponse(call: Call<AddProdResponse>, response: Response<AddProdResponse>) {
                             Toast.makeText(applicationContext, response.body()?.success, Toast.LENGTH_SHORT).show()
-                            val fragment = HomeFragment()
-                            supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
+                            val i = Intent(applicationContext, HomeActivity::class.java)
+                            startActivity(i)
                         }
                         override fun onFailure(call: Call<AddProdResponse>, t: Throwable) {
                             Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
