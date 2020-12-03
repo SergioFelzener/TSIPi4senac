@@ -39,6 +39,11 @@ class APICategoriesController extends Controller
     {
         $category = Category::find($id);
         $products = $category->products()->get();
+        $photos = array();
+        for ($i=0; $i < count($products); $i++) { 
+            $photo = $products[$i]->photos()->get();
+            $products[$i]->photos = $photo;
+        }
         return response()->json(['category' => $category, 'products' => $products]);
     }
 

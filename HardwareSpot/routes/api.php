@@ -24,19 +24,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::get('users', [APIUserController::class, 'index'])->name('users');
+    
     Route::get('/cart', [APICartController::class, 'cart']);
     Route::get('/logout', [APIUserController::class, 'logout']);
     Route::post('/cart', [APICartController::class, 'store']);
-    Route::get('/checkout', [APICartController::class, 'checkout']);
-    Route::post('/remove-prod/{id}', [APICartController::class, 'removeProd']);
+    Route::post('/checkout', [APICartController::class, 'checkout']);
+    Route::post('/remove-prod-one', [APICartController::class, 'removeProdOne']);
+    Route::post('/remove-prod', [APICartController::class, 'removeProd']);
     Route::get('/remove-cart', [APICartController::class, 'removeCart']);
     Route::get('/orders', [APIOrder::class, 'myOrders']);
     Route::get('/order-products/{id}', [APIOrder::class, 'showProducts']); 
 
     
 });
-
+Route::get('users', [APIUserController::class, 'index'])->name('users');
 Route::post('/login', [APIUserController::class, 'login']);
 Route::put('/updateUser/{id}', [APIUserController::class, 'update']);
 Route::post('/register', [APIUserController::class, 'store']);

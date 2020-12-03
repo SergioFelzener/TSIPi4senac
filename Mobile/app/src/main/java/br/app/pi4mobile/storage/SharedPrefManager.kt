@@ -3,6 +3,7 @@ package br.app.pi4mobile.storage
 import android.content.Context
 import android.content.Intent
 import br.app.pi4mobile.activitys.HomeActivity
+import br.app.pi4mobile.api.UserModel
 import br.app.pi4mobile.models.User
 
 class SharedPrefManager private constructor(private val mCtx: Context) {
@@ -13,20 +14,20 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
             return sharedPreferences.getInt("id", -1) != -1
         }
 
-    val user: User
+    val user: UserModel
         get() {
             val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
-            return User(
+            return UserModel(
                 sharedPreferences.getInt("id", 0),
                 sharedPreferences.getString("email", null),
                 sharedPreferences.getString("name", null),
                 sharedPreferences.getString("password", null),
-                sharedPreferences.getString("profile_photo_url", null)
+                sharedPreferences.getString("token", null)
             )
         }
 
 
-    fun saveUser(user: User) {
+    fun saveUser(user: UserModel) {
 
         val sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -35,7 +36,9 @@ class SharedPrefManager private constructor(private val mCtx: Context) {
         editor.putString("email", user.email)
         editor.putString("name", user.name)
         editor.putString("password", user.password)
-        editor.putString("profile_photo_url", user.profile_photo_url)
+        if (user.token != null){
+            editor.putString("token", user.token)
+        }
 
         editor.apply()
 

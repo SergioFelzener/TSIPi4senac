@@ -25,8 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="NOME"
-                android:textColor="#9F9F9F"
+                android:textAlignment="textStart"
+                android:textColor="#222222"
                 android:textSize="10sp" />
 
             <TextView
@@ -37,7 +39,9 @@
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:text="RTX 3090 16GB" />
+                android:fontFamily="sans-serif-light"
+                android:text="RTX 3090 16GB"
+                android:textColor="#222222" />
 
         </LinearLayout>
 
@@ -53,8 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="PREÇO"
-                android:textColor="#9F9F9F"
+                android:textAlignment="textStart"
+                android:textColor="#222222"
                 android:textSize="10sp" />
 
             <TextView
@@ -62,31 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="13999" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/quantityLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_weight="1"
-                android:text="QNTD"
-                android:textColor="#9F9F9F"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/cartItemQuantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1" />
+                android:fontFamily="sans-serif-light"
+                android:text="13999"
+                android:textColor="#222222" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -98,6 +82,55 @@
             app:backgroundTint="#00FFFFFF"
             app:elevation="0dp"
             app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/quantityLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_weight="2"
+                android:fontFamily="sans-serif-medium"
+                android:text="QNTD"
+                android:textAlignment="textStart"
+                android:textColor="#222222"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/cartItemQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="#222222" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cartAddItemIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="true"
+            app:backgroundTint="#00FFFFFF"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cartItemRemoveAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:clickable="true"
+            app:backgroundTint="#00FFFFFF"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_action_remove" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

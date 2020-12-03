@@ -18,7 +18,7 @@ class APIProductsController extends Controller
     
     public function index()
     {
-        return response()->json(Product::with('categories','photos')->get());
+        return response()->json(["products" => Product::with('categories','photos')->get()]);
     }
 
     /**
@@ -69,11 +69,14 @@ class APIProductsController extends Controller
 
         $products = Product::selectRaw('products.*')->where('products.name', 'LIKE' , '%' . $product . '%')->orderBy('name')->get();
         //dd($products);
-
+        $photos = array();
+        for ($i=0; $i < count($products); $i++) { 
+            $photo = $products[$i]->photos()->get();
+            $products[$i]->photos = $photo;
+        }
         if ($products->count() > 0 ) { 
 
-            return response()->json(['product' => $products,
-                                     'photos' => ' ']); 
+            return response()->json(['products' => $products]); 
         } else { 
 
             return response()->json(['Error' => 'Produto não Existe da Base de Dados'], 404);

@@ -12,16 +12,56 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/poppins_medium"
             android:text="Pedidos"
-            android:textSize="38sp"
+            android:textColor="#222222"
+            android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMessageOrders"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="250dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Você ainda não fez nenhum pedido"
+            android:textAlignment="center"
+            android:textColor="#3A3A3A"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ordersItemsView" />
+
+        <ScrollView
+            android:id="@+id/ordersItemsView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+            <LinearLayout
+                android:id="@+id/ordersItemsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
